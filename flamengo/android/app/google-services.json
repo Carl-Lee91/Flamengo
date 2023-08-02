@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "65309275314",
+    "project_id": "flamengocarllee",
+    "storage_bucket": "flamengocarllee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65309275314:android:6b52248aa6eafdaa1bc5ab",
+        "android_client_info": {
+          "package_name": "com.example.flamengo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "65309275314-dno42peleic13vvomdkm7oaeijblm3pf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY1Nhq0YMxys6ynNe6D1Mhdgv8G1eLq8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "65309275314-dno42peleic13vvomdkm7oaeijblm3pf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "65309275314-mp1ppbaf5e1b56i2is0t0u77nrqvp13o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flamengo.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

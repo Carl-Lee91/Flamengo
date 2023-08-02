@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>65309275314-tmlfeoo20dsbr85hvmqcov5m31sh1vup.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.65309275314-tmlfeoo20dsbr85hvmqcov5m31sh1vup</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCkgDqcGdIRGtfjGlN45rvGyCGz2ULA0Hw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>65309275314</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.flamengo</string>
+	<key>PROJECT_ID</key>
+	<string>flamengocarllee</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flamengocarllee.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:65309275314:ios:dc6ffc3f2d1bf6371bc5ab</string>
+</dict>
+</plist>
