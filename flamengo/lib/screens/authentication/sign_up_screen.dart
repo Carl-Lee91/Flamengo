@@ -1,23 +1,23 @@
 import 'package:flamengo/constants/gaps.dart';
 import 'package:flamengo/constants/sizes.dart';
-import 'package:flamengo/screens/authentication/sign_up_screen.dart';
+import 'package:flamengo/screens/authentication/login_screen.dart';
 import 'package:flamengo/screens/authentication/widget/auth_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  void onTapToSignUpScreen() {
+class _SignUpScreenState extends State<SignUpScreen> {
+  void onTapToLogInScreen() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const SignUpScreen(),
+        builder: (context) => const LoginScreen(),
       ),
     );
   }
@@ -60,22 +60,22 @@ class _LoginScreenState extends State<LoginScreen> {
           Gaps.v20,
           const AuthButton(
             icon: FontAwesomeIcons.userCheck,
-            text: 'Log In by Username',
+            text: 'Create Account by Username',
           ),
           const AuthButton(
             icon: FontAwesomeIcons.google,
-            text: 'Log In by Google',
+            text: 'Create Account by Google',
           ),
           const AuthButton(
             icon: FontAwesomeIcons.github,
-            text: 'Log In by Github',
+            text: 'Create Account by Github',
           ),
           Gaps.v10,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                "Don't you have an account?",
+                "Do you have an account?",
                 style: TextStyle(
                   fontSize: Sizes.size12,
                   fontWeight: FontWeight.w600,
@@ -83,9 +83,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Gaps.h6,
               GestureDetector(
-                onTap: onTapToSignUpScreen,
+                onTap: onTapToLogInScreen,
                 child: Text(
-                  "Sign In",
+                  "Log In",
                   style: TextStyle(
                     fontSize: Sizes.size12,
                     fontWeight: FontWeight.w600,
