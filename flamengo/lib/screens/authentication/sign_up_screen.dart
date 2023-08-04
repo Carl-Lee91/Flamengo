@@ -50,7 +50,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           Gaps.v20,
           Text(
-            "Login for Flamengo",
+            "Sign Up for Flamengo",
             style: TextStyle(
               fontSize: Sizes.size28,
               fontWeight: FontWeight.w600,
