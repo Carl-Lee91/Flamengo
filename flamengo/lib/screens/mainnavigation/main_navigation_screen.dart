@@ -55,14 +55,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
           NavigationDestination(
             icon: FaIcon(
-              FontAwesomeIcons.info,
+              FontAwesomeIcons.circleInfo,
               color: Colors.white,
             ),
             label: 'Information',
           ),
           NavigationDestination(
             icon: FaIcon(
-              FontAwesomeIcons.checkDouble,
+              FontAwesomeIcons.solidStar,
               color: Colors.white,
             ),
             label: 'Recommend',

@@ -37,7 +37,7 @@ class _MainAppBarState extends State<MainAppBar> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: Sizes.size16,
+              horizontal: Sizes.size6,
             ),
             child: IconButton(
               onPressed: onTapToSettingScreen,
