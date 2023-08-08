@@ -1,5 +1,5 @@
 import 'package:flamengo/constants/sizes.dart';
-import 'package:flamengo/screens/mainnavigation/main_navigation_screen.dart';
+import 'package:flamengo/screens/greeting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         themeMode: ThemeMode.system,
-        home: const MainNavigationScreen(),
+        home: const GreetingScreen(),
       ),
     );
   }

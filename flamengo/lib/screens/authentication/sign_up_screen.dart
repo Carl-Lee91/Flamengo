@@ -1,6 +1,7 @@
 import 'package:flamengo/constants/gaps.dart';
 import 'package:flamengo/constants/sizes.dart';
 import 'package:flamengo/screens/authentication/login_screen.dart';
+import 'package:flamengo/screens/authentication/username_screen.dart';
 import 'package:flamengo/screens/authentication/widget/auth_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,6 +19,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => const LoginScreen(),
+      ),
+    );
+  }
+
+  void onTapToCreateAccount() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const UsernameScreen(),
       ),
     );
   }
@@ -58,9 +68,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
           Gaps.v20,
-          const AuthButton(
-            icon: FontAwesomeIcons.userCheck,
-            text: 'Create Account by Username',
+          GestureDetector(
+            onTap: onTapToCreateAccount,
+            child: const AuthButton(
+              icon: FontAwesomeIcons.userCheck,
+              text: 'Create Account by Username',
+            ),
           ),
           const AuthButton(
             icon: FontAwesomeIcons.google,
