@@ -40,7 +40,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
           Offstage(
             offstage: _selectedIndex != 2,
-            child: const LocalRecommend(),
+            child: const LocalRecommendScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 3,
@@ -58,28 +58,24 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           NavigationDestination(
             icon: FaIcon(
               FontAwesomeIcons.house,
-              color: Colors.white,
             ),
             label: 'Dashboard',
           ),
           NavigationDestination(
             icon: FaIcon(
               FontAwesomeIcons.circleInfo,
-              color: Colors.white,
             ),
             label: 'Information',
           ),
           NavigationDestination(
             icon: FaIcon(
               FontAwesomeIcons.solidStar,
-              color: Colors.white,
             ),
             label: 'Recommend',
           ),
           NavigationDestination(
             icon: FaIcon(
               FontAwesomeIcons.mapLocationDot,
-              color: Colors.white,
             ),
             label: 'Schedule',
           ),

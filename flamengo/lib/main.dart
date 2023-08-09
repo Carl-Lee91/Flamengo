@@ -1,5 +1,5 @@
 import 'package:flamengo/constants/sizes.dart';
-import 'package:flamengo/screens/mainnavigation/main_navigation_screen.dart';
+import 'package:flamengo/screens/greeting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -46,6 +46,11 @@ class MyApp extends StatelessWidget {
             ),
           ),
           navigationBarTheme: NavigationBarThemeData(
+            iconTheme: MaterialStateProperty.resolveWith<IconThemeData?>(
+              (states) => const IconThemeData(
+                color: Colors.white,
+              ),
+            ),
             labelTextStyle: MaterialStateProperty.resolveWith<TextStyle?>(
               (states) => const TextStyle(
                 fontWeight: FontWeight.bold,
@@ -57,12 +62,12 @@ class MyApp extends StatelessWidget {
         darkTheme: ThemeData(
           appBarTheme: AppBarTheme(
             iconTheme: IconThemeData(
-              color: Colors.grey.shade700,
+              color: Colors.grey.shade300,
             ),
             color: const Color(0xFFF93A5B),
             centerTitle: true,
             titleTextStyle: TextStyle(
-              color: Colors.grey.shade700,
+              color: Colors.grey.shade300,
               fontWeight: FontWeight.w900,
               fontSize: Sizes.size24,
               letterSpacing: 2.0,
@@ -71,7 +76,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           textTheme: Typography.whiteCupertino,
           brightness: Brightness.dark,
-          scaffoldBackgroundColor: Colors.black,
+          scaffoldBackgroundColor: Colors.grey.shade800,
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.grey.shade900,
           ),
@@ -82,16 +87,21 @@ class MyApp extends StatelessWidget {
             ),
           ),
           navigationBarTheme: NavigationBarThemeData(
+            iconTheme: MaterialStateProperty.resolveWith<IconThemeData?>(
+              (states) => IconThemeData(
+                color: Colors.grey.shade300,
+              ),
+            ),
             labelTextStyle: MaterialStateProperty.resolveWith<TextStyle?>(
               (states) => TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.grey.shade700,
+                color: Colors.grey.shade300,
               ),
             ),
           ),
         ),
         themeMode: ThemeMode.system,
-        home: const MainNavigationScreen(),
+        home: const GreetingScreen(),
       ),
     );
   }

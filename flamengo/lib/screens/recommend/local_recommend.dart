@@ -1,15 +1,18 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class LocalRecommend extends StatefulWidget {
-  const LocalRecommend({super.key});
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+class LocalRecommendScreen extends StatefulWidget {
+  const LocalRecommendScreen({super.key});
 
   @override
-  State<LocalRecommend> createState() => _LocalRecommendState();
+  State<LocalRecommendScreen> createState() => LocalRecommendScreenState();
 }
 
-class _LocalRecommendState extends State<LocalRecommend> {
+class LocalRecommendScreenState extends State<LocalRecommendScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold();
   }
 }

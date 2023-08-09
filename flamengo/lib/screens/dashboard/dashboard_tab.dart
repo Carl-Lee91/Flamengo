@@ -63,7 +63,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               ),
               Gaps.v36,
               Text(
-                "My Favorite Site",
+                "My Travel Schedule",
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontSize: Sizes.size24,
@@ -93,7 +93,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                         return ListTile(
                           title: Text("Item $index"),
                           leading: FaIcon(
-                            FontAwesomeIcons.solidStar,
+                            FontAwesomeIcons.solidCircle,
+                            size: Sizes.size10,
                             color: Theme.of(context).primaryColor,
                           ),
                         );

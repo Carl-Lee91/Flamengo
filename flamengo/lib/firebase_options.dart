@@ -44,7 +44,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBB_q5L8fuF5f2UAvbUkDg7xijaNOStFCk',
+    apiKey: 'AIzaSyBB_q5L8fuF5f2UAvbUkDg7xijaNOStFCk', //닷엔브
     appId: '1:65309275314:web:a320b92a5be80b1a1bc5ab',
     messagingSenderId: '65309275314',
     projectId: 'flamengocarllee',
@@ -53,7 +53,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBY1Nhq0YMxys6ynNe6D1Mhdgv8G1eLq8Y',
+    apiKey: 'AIzaSyBY1Nhq0YMxys6ynNe6D1Mhdgv8G1eLq8Y', //닷엔브
     appId: '1:65309275314:android:6b52248aa6eafdaa1bc5ab',
     messagingSenderId: '65309275314',
     projectId: 'flamengocarllee',
@@ -61,22 +61,24 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCkgDqcGdIRGtfjGlN45rvGyCGz2ULA0Hw',
+    apiKey: 'AIzaSyCkgDqcGdIRGtfjGlN45rvGyCGz2ULA0Hw', //닷엔브
     appId: '1:65309275314:ios:dc6ffc3f2d1bf6371bc5ab',
     messagingSenderId: '65309275314',
     projectId: 'flamengocarllee',
     storageBucket: 'flamengocarllee.appspot.com',
-    iosClientId: '65309275314-tmlfeoo20dsbr85hvmqcov5m31sh1vup.apps.googleusercontent.com',
+    iosClientId:
+        '65309275314-tmlfeoo20dsbr85hvmqcov5m31sh1vup.apps.googleusercontent.com',
     iosBundleId: 'com.example.flamengo',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCkgDqcGdIRGtfjGlN45rvGyCGz2ULA0Hw',
+    apiKey: 'AIzaSyCkgDqcGdIRGtfjGlN45rvGyCGz2ULA0Hw', //닷엔브
     appId: '1:65309275314:ios:3890c8d39f39739a1bc5ab',
     messagingSenderId: '65309275314',
     projectId: 'flamengocarllee',
     storageBucket: 'flamengocarllee.appspot.com',
-    iosClientId: '65309275314-mp1ppbaf5e1b56i2is0t0u77nrqvp13o.apps.googleusercontent.com',
+    iosClientId:
+        '65309275314-mp1ppbaf5e1b56i2is0t0u77nrqvp13o.apps.googleusercontent.com',
     iosBundleId: 'com.example.flamengo.RunnerTests',
   );
 }
