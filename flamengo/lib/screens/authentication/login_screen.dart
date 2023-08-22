@@ -1,11 +1,14 @@
 import 'package:flamengo/constants/gaps.dart';
 import 'package:flamengo/constants/sizes.dart';
-import 'package:flamengo/screens/authentication/sign_up_screen.dart';
 import 'package:flamengo/screens/authentication/widget/auth_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
+  static String routeName = "login";
+  static String routeUrl = "login";
+
   const LoginScreen({super.key});
 
   @override
@@ -14,12 +17,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   void onTapToSignUpScreen() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const SignUpScreen(),
-      ),
-    );
+    context.pop();
   }
 
   @override

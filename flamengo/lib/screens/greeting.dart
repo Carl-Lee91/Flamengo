@@ -1,16 +1,17 @@
 import 'package:flamengo/constants/gaps.dart';
 import 'package:flamengo/constants/sizes.dart';
-import 'package:flamengo/screens/authentication/login_screen.dart';
+import 'package:flamengo/screens/authentication/sign_up_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class GreetingScreen extends StatelessWidget {
+  static const routeName = "greetings";
+  static const routeUrl = "/";
+
   const GreetingScreen({super.key});
 
   void onTapLoginScreen(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginScreen()),
-    );
+    context.pushNamed(SignUpScreen.routeName);
   }
 
   @override

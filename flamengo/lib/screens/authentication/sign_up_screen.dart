@@ -5,8 +5,12 @@ import 'package:flamengo/screens/authentication/username_screen.dart';
 import 'package:flamengo/screens/authentication/widget/auth_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class SignUpScreen extends StatefulWidget {
+  static String routeName = "signup";
+  static String routeUrl = "signup";
+
   const SignUpScreen({super.key});
 
   @override
@@ -14,22 +18,12 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  void onTapToLogInScreen() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
-    );
+  void _onTapToLogInScreen() {
+    context.pushNamed(LoginScreen.routeName);
   }
 
-  void onTapToCreateAccount() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const UsernameScreen(),
-      ),
-    );
+  void _onTapToCreateAccount() {
+    context.pushNamed(UsernameScreen.routeName);
   }
 
   @override
@@ -69,7 +63,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           Gaps.v20,
           GestureDetector(
-            onTap: onTapToCreateAccount,
+            onTap: _onTapToCreateAccount,
             child: const AuthButton(
               icon: FontAwesomeIcons.userCheck,
               text: 'Create Account by Username',
@@ -96,7 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               Gaps.h6,
               GestureDetector(
-                onTap: onTapToLogInScreen,
+                onTap: _onTapToLogInScreen,
                 child: Text(
                   "Log In",
                   style: TextStyle(

@@ -3,12 +3,26 @@ import 'package:flamengo/constants/gaps.dart';
 import 'package:flamengo/constants/sizes.dart';
 import 'package:flamengo/screens/authentication/widget/auth_appbar.dart';
 import 'package:flamengo/screens/authentication/widget/form_btn.dart';
-import 'package:flamengo/screens/mainnavigation/main_navigation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
+
+class PasswordScreenArgs {
+  final String username;
+
+  PasswordScreenArgs({required this.username});
+}
 
 class PasswordScreen extends StatefulWidget {
-  const PasswordScreen({super.key});
+  static String routeName = "password";
+  static String routeUrl = "password";
+
+  final String username;
+
+  const PasswordScreen({
+    super.key,
+    required this.username,
+  });
 
   @override
   State<PasswordScreen> createState() => _PasswordScreenState();
@@ -60,12 +74,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
   }
 
   void _onTapToMainNavigationScreen() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const MainNavigationScreen(),
-      ),
-    );
+    context.go("/home");
   }
 
   @override
@@ -105,9 +114,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 ),
                 Gaps.v40,
                 Text(
-                  "Create password",
+                  "Create password, ${widget.username}",
                   style: TextStyle(
-                    fontSize: Sizes.size28,
+                    fontSize: Sizes.size24,
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).primaryColor,
                   ),

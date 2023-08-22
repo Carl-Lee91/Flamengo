@@ -1,6 +1,6 @@
 import 'package:flamengo/screens/dashboard/dashboard_tab.dart';
 import 'package:flamengo/screens/information/travel_information_screen.dart';
-import 'package:flamengo/screens/mainnavigation/widget/main_appbar.dart';
+import 'package:flamengo/common/widgets/main_navigation/widget/main_appbar.dart';
 import 'package:flamengo/screens/recommend/local_recommend.dart';
 import 'package:flamengo/screens/schedule/travel_schedule.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +32,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         children: [
           Offstage(
             offstage: _selectedIndex != 0,
-            child: const DashBoardScreen(),
+            child: const DashBoardScreen(
+              username: "carl",
+            ),
           ),
           Offstage(
             offstage: _selectedIndex != 1,

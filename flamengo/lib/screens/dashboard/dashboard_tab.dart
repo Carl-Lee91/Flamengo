@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DashBoardScreen extends StatefulWidget {
-  const DashBoardScreen({super.key});
+  final String username;
+
+  const DashBoardScreen({
+    super.key,
+    required this.username,
+  });
 
   @override
   State<DashBoardScreen> createState() => _DashBoardScreenState();

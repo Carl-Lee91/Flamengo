@@ -1,9 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flamengo/constants/sizes.dart';
-import 'package:flamengo/screens/greeting.dart';
+import 'package:flamengo/firebase_options.dart';
+import 'package:flamengo/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(
     const ProviderScope(
       child: MyApp(),
@@ -11,13 +19,15 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routerConfig: router,
+        debugShowCheckedModeBanner: true,
         theme: ThemeData(
           appBarTheme: const AppBarTheme(
             iconTheme: IconThemeData(
@@ -101,7 +111,6 @@ class MyApp extends StatelessWidget {
           ),
         ),
         themeMode: ThemeMode.system,
-        home: const GreetingScreen(),
       ),
     );
   }
