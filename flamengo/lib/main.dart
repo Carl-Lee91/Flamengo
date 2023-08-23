@@ -26,7 +26,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: MaterialApp.router(
-        routerConfig: router,
+        routerConfig: ref.watch(routerProvider),
         debugShowCheckedModeBanner: true,
         theme: ThemeData(
           appBarTheme: const AppBarTheme(

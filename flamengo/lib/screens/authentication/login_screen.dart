@@ -1,5 +1,6 @@
 import 'package:flamengo/constants/gaps.dart';
 import 'package:flamengo/constants/sizes.dart';
+import 'package:flamengo/screens/authentication/login_form_screen.dart';
 import 'package:flamengo/screens/authentication/widget/auth_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,7 +8,7 @@ import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   static String routeName = "login";
-  static String routeUrl = "login";
+  static String routeUrl = "/login";
 
   const LoginScreen({super.key});
 
@@ -16,8 +17,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  void onTapToSignUpScreen() {
+  void _onTapToSignUpScreen() {
     context.pop();
+  }
+
+  void _onTapToLoginFromScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LoginFormScreen(),
+      ),
+    );
   }
 
   @override
@@ -56,9 +66,12 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           Gaps.v20,
-          const AuthButton(
-            icon: FontAwesomeIcons.userCheck,
-            text: 'Log In by Username',
+          GestureDetector(
+            onTap: _onTapToLoginFromScreen,
+            child: const AuthButton(
+              icon: FontAwesomeIcons.userCheck,
+              text: 'Log In by Username',
+            ),
           ),
           const AuthButton(
             icon: FontAwesomeIcons.google,
@@ -81,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Gaps.h6,
               GestureDetector(
-                onTap: onTapToSignUpScreen,
+                onTap: _onTapToSignUpScreen,
                 child: Text(
                   "Sign In",
                   style: TextStyle(

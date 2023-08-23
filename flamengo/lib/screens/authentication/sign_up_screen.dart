@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 
 class SignUpScreen extends StatefulWidget {
   static String routeName = "signup";
-  static String routeUrl = "signup";
+  static String routeUrl = "/signup";
 
   const SignUpScreen({super.key});
 
