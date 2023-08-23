@@ -23,7 +23,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _onTapToCreateAccount() {
-    context.pushNamed(UsernameScreen.routeName);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const UsernameScreen(),
+      ),
+    );
   }
 
   @override

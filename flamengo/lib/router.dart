@@ -1,12 +1,11 @@
+import 'package:flamengo/common/widgets/main_navigation/main_navigation_screen.dart';
 import 'package:flamengo/screens/authentication/login_screen.dart';
-import 'package:flamengo/screens/authentication/password_screen.dart';
 import 'package:flamengo/screens/authentication/sign_up_screen.dart';
-import 'package:flamengo/screens/authentication/username_screen.dart';
-import 'package:flamengo/screens/dashboard/dashboard_tab.dart';
 import 'package:flamengo/screens/greeting.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
+  initialLocation: "/dashboard",
   routes: [
     GoRoute(
       name: GreetingScreen.routeName,
@@ -17,23 +16,6 @@ final router = GoRouter(
           name: SignUpScreen.routeName,
           path: SignUpScreen.routeUrl,
           builder: (context, state) => const SignUpScreen(),
-          routes: [
-            GoRoute(
-              name: UsernameScreen.routeName,
-              path: UsernameScreen.routeUrl,
-              builder: (context, state) => const UsernameScreen(),
-              routes: [
-                GoRoute(
-                  name: PasswordScreen.routeName,
-                  path: PasswordScreen.routeUrl,
-                  builder: (context, state) {
-                    final args = state.extra as PasswordScreenArgs;
-                    return PasswordScreen(username: args.username);
-                  },
-                ),
-              ],
-            ),
-          ],
         ),
         GoRoute(
           name: LoginScreen.routeName,
@@ -43,10 +25,11 @@ final router = GoRouter(
       ],
     ),
     GoRoute(
-      path: "/users/:username",
+      path: "/:tab(dashboard|information|recommend|schedule)",
+      name: MainNavigationScreen.routeName,
       builder: (context, state) {
-        final username = state.pathParameters["username"];
-        return DashBoardScreen(username: username!);
+        final tab = state.pathParameters["tab"]!;
+        return MainNavigationScreen(tab: tab);
       },
     ),
   ],

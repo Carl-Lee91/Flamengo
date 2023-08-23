@@ -74,7 +74,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
   }
 
   void _onTapToMainNavigationScreen() {
-    context.go("/home");
+    context.go("/dashboard");
   }
 
   @override

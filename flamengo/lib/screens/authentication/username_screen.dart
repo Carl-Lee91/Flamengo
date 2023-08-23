@@ -6,11 +6,8 @@ import 'package:flamengo/screens/authentication/widget/auth_appbar.dart';
 import 'package:flamengo/screens/authentication/widget/form_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class UsernameScreen extends ConsumerStatefulWidget {
-  static String routeName = "username";
-  static String routeUrl = "username";
   const UsernameScreen({super.key});
 
   @override
@@ -49,9 +46,11 @@ class _UsernameScreenState extends ConsumerState<UsernameScreen> {
 
   void _onTapToPasswordScreen() {
     if (_username.isEmpty) return;
-    context.pushNamed(
-      PasswordScreen.routeName,
-      extra: PasswordScreenArgs(username: _username),
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PasswordScreen(username: _username),
+      ),
     );
   }
 

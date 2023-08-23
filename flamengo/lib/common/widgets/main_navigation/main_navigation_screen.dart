@@ -5,10 +5,16 @@ import 'package:flamengo/screens/recommend/local_recommend.dart';
 import 'package:flamengo/screens/schedule/travel_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class MainNavigationScreen extends StatefulWidget {
+  static const routeName = "mainNavigation";
+
+  final String tab;
+
   const MainNavigationScreen({
     super.key,
+    required this.tab,
   });
 
   @override
@@ -16,9 +22,17 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndex = 0;
+  final List<String> _tabs = [
+    "dashboard",
+    "information",
+    "recommend",
+    "schedule",
+  ];
+
+  late int _selectedIndex = _tabs.indexOf(widget.tab);
 
   void _onTap(int index) {
+    context.go("/${_tabs[index]}");
     setState(() {
       _selectedIndex = index;
     });
