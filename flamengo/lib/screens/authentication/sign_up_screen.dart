@@ -71,7 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             onTap: _onTapToCreateAccount,
             child: const AuthButton(
               icon: FontAwesomeIcons.userCheck,
-              text: 'Create Account by Username',
+              text: 'Create Account by Email',
             ),
           ),
           const AuthButton(

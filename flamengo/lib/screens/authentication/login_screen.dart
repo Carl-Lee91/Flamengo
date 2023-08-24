@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onTap: _onTapToLoginFromScreen,
             child: const AuthButton(
               icon: FontAwesomeIcons.userCheck,
-              text: 'Log In by Username',
+              text: 'Log In by Email',
             ),
           ),
           const AuthButton(

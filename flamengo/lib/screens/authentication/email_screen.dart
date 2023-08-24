@@ -2,6 +2,7 @@ import 'package:flamengo/constants/function.dart';
 import 'package:flamengo/constants/gaps.dart';
 import 'package:flamengo/constants/sizes.dart';
 import 'package:flamengo/screens/authentication/password_screen.dart';
+import 'package:flamengo/screens/authentication/view_models/signup_view_models.dart';
 import 'package:flamengo/screens/authentication/widget/auth_appbar.dart';
 import 'package:flamengo/screens/authentication/widget/form_btn.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,8 @@ class _EmailScreenState extends ConsumerState<EmailScreen> {
 
   void _onTapToPasswordScreen() {
     if (_email.isEmpty || _isEmailValid() != null) return;
+    final state = ref.read(signUpForm.notifier).state;
+    ref.read(signUpForm.notifier).state = {...state, "email": _email};
     Navigator.push(
       context,
       MaterialPageRoute(

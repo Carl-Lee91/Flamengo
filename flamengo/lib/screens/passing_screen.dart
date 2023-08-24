@@ -7,6 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 class PassingScreen extends ConsumerStatefulWidget {
+  static String routeName = "tutorial";
+  static String routeUrl = "/tutorial";
+
   const PassingScreen({super.key});
 
   @override

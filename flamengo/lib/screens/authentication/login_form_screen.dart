@@ -1,11 +1,11 @@
 import 'package:flamengo/constants/function.dart';
 import 'package:flamengo/constants/gaps.dart';
 import 'package:flamengo/constants/sizes.dart';
+import 'package:flamengo/screens/authentication/view_models/login_view_model.dart';
 import 'package:flamengo/screens/authentication/widget/auth_appbar.dart';
 import 'package:flamengo/screens/authentication/widget/form_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class LoginFormScreen extends ConsumerStatefulWidget {
   const LoginFormScreen({super.key});
@@ -23,7 +23,11 @@ class _LoginFormScreenState extends ConsumerState<LoginFormScreen> {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        context.go("/dashboard");
+        ref.read(loginProvider.notifier).login(
+              formData["email"]!,
+              formData["password"]!,
+              context,
+            );
       }
     }
   }
@@ -80,17 +84,17 @@ class _LoginFormScreenState extends ConsumerState<LoginFormScreen> {
                     children: [
                       TextFormField(
                         decoration: const InputDecoration(
-                          hintText: "Username",
+                          hintText: "Email",
                         ),
                         validator: (value) {
                           if (value != null && value.isEmpty) {
-                            return "Plaeas Write Your Username";
+                            return "Plaeas Write Your Email";
                           }
                           return null;
                         },
                         onSaved: (newValue) {
                           if (newValue != null) {
-                            formData["username"] = newValue;
+                            formData["email"] = newValue;
                           }
                         },
                       ),
@@ -107,18 +111,18 @@ class _LoginFormScreenState extends ConsumerState<LoginFormScreen> {
                         },
                         onSaved: (newValue) {
                           if (newValue != null) {
-                            formData["Password"] = newValue;
+                            formData["password"] = newValue;
                           }
                         },
                       ),
                       Gaps.v24,
                       GestureDetector(
                         onTap: _onTapToMainNavigationScreen,
-                        child: const FormBtn(
-                          disabled: false,
+                        child: FormBtn(
+                          disabled: ref.watch(loginProvider).isLoading,
                           text: "Login",
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

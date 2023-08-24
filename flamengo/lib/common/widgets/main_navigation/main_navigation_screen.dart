@@ -1,4 +1,4 @@
-import 'package:flamengo/screens/dashboard/dashboard_tab.dart';
+import 'package:flamengo/screens/dashboard/dashboard.dart';
 import 'package:flamengo/screens/information/travel_information_screen.dart';
 import 'package:flamengo/common/widgets/main_navigation/widget/main_appbar.dart';
 import 'package:flamengo/screens/recommend/local_recommend.dart';

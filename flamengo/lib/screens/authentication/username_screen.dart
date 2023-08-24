@@ -1,7 +1,7 @@
 import 'package:flamengo/constants/function.dart';
 import 'package:flamengo/constants/gaps.dart';
 import 'package:flamengo/constants/sizes.dart';
-import 'package:flamengo/screens/authentication/password_screen.dart';
+import 'package:flamengo/screens/authentication/email_screen.dart';
 import 'package:flamengo/screens/authentication/widget/auth_appbar.dart';
 import 'package:flamengo/screens/authentication/widget/form_btn.dart';
 import 'package:flutter/material.dart';
@@ -44,12 +44,12 @@ class _UsernameScreenState extends ConsumerState<UsernameScreen> {
     return null;
   }
 
-  void _onTapToPasswordScreen() {
+  void _onTapToEmailScreen() {
     if (_username.isEmpty) return;
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PasswordScreen(username: _username),
+        builder: (context) => EmailScreen(username: _username),
       ),
     );
   }
@@ -101,7 +101,7 @@ class _UsernameScreenState extends ConsumerState<UsernameScreen> {
                 Gaps.v24,
                 TextField(
                   controller: _usernameController,
-                  onEditingComplete: _onTapToPasswordScreen,
+                  onEditingComplete: _onTapToEmailScreen,
                   decoration: InputDecoration(
                     hintText: "Username",
                     hintStyle: TextStyle(
@@ -112,7 +112,7 @@ class _UsernameScreenState extends ConsumerState<UsernameScreen> {
                 ),
                 Gaps.v24,
                 GestureDetector(
-                  onTap: _onTapToPasswordScreen,
+                  onTap: _onTapToEmailScreen,
                   child: FormBtn(
                     disabled: _username.isEmpty || _isUsernameValid() != null,
                     text: "Create password",

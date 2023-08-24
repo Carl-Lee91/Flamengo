@@ -1,34 +1,24 @@
 import 'package:flamengo/constants/function.dart';
 import 'package:flamengo/constants/gaps.dart';
 import 'package:flamengo/constants/sizes.dart';
+import 'package:flamengo/screens/authentication/view_models/signup_view_models.dart';
 import 'package:flamengo/screens/authentication/widget/auth_appbar.dart';
 import 'package:flamengo/screens/authentication/widget/form_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
 
-class PasswordScreenArgs {
-  final String username;
-
-  PasswordScreenArgs({required this.username});
-}
-
-class PasswordScreen extends StatefulWidget {
+class PasswordScreen extends ConsumerStatefulWidget {
   static String routeName = "password";
   static String routeUrl = "password";
 
-  final String username;
-
-  const PasswordScreen({
-    super.key,
-    required this.username,
-  });
+  const PasswordScreen({super.key});
 
   @override
-  State<PasswordScreen> createState() => _PasswordScreenState();
+  ConsumerState<PasswordScreen> createState() => _PasswordScreenState();
 }
 
-class _PasswordScreenState extends State<PasswordScreen> {
+class _PasswordScreenState extends ConsumerState<PasswordScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   String _password = "";
@@ -74,7 +64,10 @@ class _PasswordScreenState extends State<PasswordScreen> {
   }
 
   void _onTapToMainNavigationScreen() {
-    context.go("/dashboard");
+    if (!_isPasswordLengthValid() || !_isPasswordPatternValid()) return;
+    final state = ref.read(signUpForm.notifier).state;
+    ref.read(signUpForm.notifier).state = {...state, "password": _password};
+    ref.read(signUpProvider.notifier).signUp(context);
   }
 
   @override
@@ -114,7 +107,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 ),
                 Gaps.v40,
                 Text(
-                  "Create password, ${widget.username}",
+                  "Create password",
                   style: TextStyle(
                     fontSize: Sizes.size24,
                     fontWeight: FontWeight.w600,
