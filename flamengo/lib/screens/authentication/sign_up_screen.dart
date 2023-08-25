@@ -2,22 +2,24 @@ import 'package:flamengo/constants/gaps.dart';
 import 'package:flamengo/constants/sizes.dart';
 import 'package:flamengo/screens/authentication/login_screen.dart';
 import 'package:flamengo/screens/authentication/username_screen.dart';
+import 'package:flamengo/screens/authentication/view_models/social_auth_view_model.dart';
 import 'package:flamengo/screens/authentication/widget/auth_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends ConsumerStatefulWidget {
   static String routeName = "signup";
   static String routeUrl = "/signup";
 
   const SignUpScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  ConsumerState<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   void _onTapToLogInScreen() {
     context.pushNamed(LoginScreen.routeName);
   }
@@ -74,13 +76,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               text: 'Create Account by Email',
             ),
           ),
-          const AuthButton(
-            icon: FontAwesomeIcons.google,
-            text: 'Create Account by Google',
-          ),
-          const AuthButton(
-            icon: FontAwesomeIcons.github,
-            text: 'Create Account by Github',
+          GestureDetector(
+            onTap: () =>
+                ref.read(socialAuthProvider.notifier).googleSignIn(context),
+            child: const AuthButton(
+              icon: FontAwesomeIcons.google,
+              text: 'Create Account by Google',
+            ),
           ),
           Gaps.v10,
           Row(

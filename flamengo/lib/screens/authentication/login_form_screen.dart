@@ -100,6 +100,7 @@ class _LoginFormScreenState extends ConsumerState<LoginFormScreen> {
                       ),
                       Gaps.v24,
                       TextFormField(
+                        obscureText: true,
                         decoration: const InputDecoration(
                           hintText: "Password",
                         ),

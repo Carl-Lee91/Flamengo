@@ -16,6 +16,10 @@ class AuthenticationRepository {
     );
   }
 
+  Future<void> signInWithGoogle() async {
+    await _firebaseAuth.signInWithProvider(GoogleAuthProvider());
+  }
+
   Future<void> signIn(String email, String password) async {
     await _firebaseAuth.signInWithEmailAndPassword(
       email: email,
