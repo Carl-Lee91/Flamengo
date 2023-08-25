@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 
 final routerProvider = Provider(
   (ref) {
-    ref.watch(authState);
+    //ref.watch(authState);
     return GoRouter(
       initialLocation: PassingScreen.routeUrl,
       redirect: (context, state) {
