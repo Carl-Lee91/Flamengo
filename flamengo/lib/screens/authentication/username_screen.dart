@@ -2,6 +2,7 @@ import 'package:flamengo/constants/function.dart';
 import 'package:flamengo/constants/gaps.dart';
 import 'package:flamengo/constants/sizes.dart';
 import 'package:flamengo/screens/authentication/email_screen.dart';
+import 'package:flamengo/screens/authentication/view_models/signup_view_models.dart';
 import 'package:flamengo/screens/authentication/widget/auth_appbar.dart';
 import 'package:flamengo/screens/authentication/widget/form_btn.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,7 @@ class _UsernameScreenState extends ConsumerState<UsernameScreen> {
 
   void _onTapToEmailScreen() {
     if (_username.isEmpty) return;
+    ref.read(signUpForm.notifier).state = {"name": _username};
     Navigator.push(
       context,
       MaterialPageRoute(

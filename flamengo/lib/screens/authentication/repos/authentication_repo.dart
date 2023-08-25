@@ -9,19 +9,19 @@ class AuthenticationRepository {
 
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
 
-  Future<void> emailSignUp(String email, String password) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(
+  Future<UserCredential> emailSignUp(String email, String password) async {
+    return await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
   }
 
-  Future<void> signInWithGoogle() async {
-    await _firebaseAuth.signInWithProvider(GoogleAuthProvider());
+  Future<UserCredential> signUpWithGoogle() async {
+    return await _firebaseAuth.signInWithProvider(GoogleAuthProvider());
   }
 
-  Future<void> signIn(String email, String password) async {
-    await _firebaseAuth.signInWithEmailAndPassword(
+  Future<UserCredential> signIn(String email, String password) async {
+    return await _firebaseAuth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
