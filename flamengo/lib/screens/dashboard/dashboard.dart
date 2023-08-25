@@ -32,11 +32,23 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 children: [
                   Column(
                     children: [
-                      CircleAvatar(
-                        radius: 50,
-                        foregroundImage: NetworkImage(
-                            "https://lh3.googleusercontent.com/a/AGNmyxamUvm-3XN71fNXENMkFOcuBM1YTGv4RKiqqEd09g=s432-c-no"),
-                        child: Text("Carl"),
+                      Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 50,
+                            foregroundImage: NetworkImage(
+                                "https://lh3.googleusercontent.com/a/AGNmyxamUvm-3XN71fNXENMkFOcuBM1YTGv4RKiqqEd09g=s432-c-no"),
+                            child: Text("Carl"),
+                          ),
+                          Positioned(
+                            right: 0,
+                            bottom: 0,
+                            child: FaIcon(
+                              FontAwesomeIcons.cameraRetro,
+                              size: Sizes.size18,
+                            ),
+                          ),
+                        ],
                       ),
                       Gaps.v8,
                       Text(
