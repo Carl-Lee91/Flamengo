@@ -7,7 +7,8 @@ class Functions {
   }
 
   static void showErrorMessage(BuildContext context, Object? error) {
-    ScaffoldMessenger.of(context).showSnackBar(
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    scaffoldMessenger.showSnackBar(
       SnackBar(
         showCloseIcon: true,
         content: Text((error as FirebaseException).message ?? "Error"),
