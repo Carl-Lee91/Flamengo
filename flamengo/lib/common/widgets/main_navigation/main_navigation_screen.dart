@@ -46,9 +46,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         children: [
           Offstage(
             offstage: _selectedIndex != 0,
-            child: const DashBoardScreen(
-              username: "carl",
-            ),
+            child: const DashBoardScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 1,
