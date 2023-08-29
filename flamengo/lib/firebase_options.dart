@@ -69,7 +69,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '65309275314',
     projectId: 'flamengocarllee',
     storageBucket: 'flamengocarllee.appspot.com',
-    iosClientId: '65309275314-tmlfeoo20dsbr85hvmqcov5m31sh1vup.apps.googleusercontent.com',
+    iosClientId:
+        '65309275314-tmlfeoo20dsbr85hvmqcov5m31sh1vup.apps.googleusercontent.com',
     iosBundleId: 'com.example.flamengo',
   );
 }
