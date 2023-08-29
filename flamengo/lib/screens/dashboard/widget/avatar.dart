@@ -26,7 +26,7 @@ class Avatar extends ConsumerWidget {
     );
     if (xfile != null) {
       final file = File(xfile.path);
-      await ref.read(avatarProvider.notifier).uploadAvatar(file);
+      ref.read(avatarProvider.notifier).uploadAvatar(file);
     }
   }
 
