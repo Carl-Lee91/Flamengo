@@ -17,14 +17,15 @@ class TravelInformationScreen extends ConsumerStatefulWidget {
 
 class _TravelInformationScreenState
     extends ConsumerState<TravelInformationScreen> {
-  GoogleMapController? _mapController;
   final Set<Marker> _markers = {};
   final Geolocator geolocator = Geolocator();
-  Marker? _selectedMarker;
-  bool isLiked = false;
 
   static const initialLatLng = LatLng(37.67, 126.75);
   static const initialZoom = 14.0;
+
+  GoogleMapController? _mapController;
+  Marker? _selectedMarker;
+  bool isLiked = false;
 
   @override
   void initState() {
@@ -53,8 +54,6 @@ class _TravelInformationScreenState
     _moveCamera(LatLng(lat, lng));
   }
 
-  Future<void> _setLiked() async {}
-
   void _showMarkerInfoDialog(PlaceModel place) {
     showDialog(
       context: context,
@@ -65,11 +64,7 @@ class _TravelInformationScreenState
             children: [
               Text(place.name),
               GestureDetector(
-                onTap: () {},
-                child: isLiked
-                    ? const Icon(Icons.star)
-                    : const Icon(Icons.star_border),
-              ),
+                  onTap: () {}, child: const Icon(Icons.star_border)),
             ],
           ),
           content: Column(
@@ -103,20 +98,20 @@ class _TravelInformationScreenState
     return Marker(
       markerId: MarkerId(place.name),
       position: LatLng(place.lat, place.lng),
-      infoWindow: place.rating != 0
+      infoWindow: place.rating == 0
           ? InfoWindow(
               onTap: () {
                 _showMarkerInfoDialog(place);
               },
               title: place.name,
-              snippet: 'Rating: ${place.rating},',
+              snippet: "No Rating",
             )
           : InfoWindow(
               onTap: () {
                 _showMarkerInfoDialog(place);
               },
               title: place.name,
-              snippet: 'Rating: No Rating,',
+              snippet: "Rating : ${place.rating}",
             ),
     );
   }
