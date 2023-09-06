@@ -4,6 +4,7 @@ import 'package:flamengo/api/api_services.dart';
 import 'package:flamengo/api/model/place_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class TravelInformationScreen extends ConsumerStatefulWidget {
@@ -16,13 +17,11 @@ class TravelInformationScreen extends ConsumerStatefulWidget {
 
 class _TravelInformationScreenState
     extends ConsumerState<TravelInformationScreen> {
-  final Future<List<PlaceModel>> places =
-      ApiService.fetchNearbyPlacesById(37.67, 126.75);
   GoogleMapController? _mapController;
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
   final Set<Marker> _markers = {};
+  final Geolocator geolocator = Geolocator();
   Marker? _selectedMarker;
+  bool isLiked = false;
 
   static const initialLatLng = LatLng(37.67, 126.75);
   static const initialZoom = 14.0;
@@ -31,6 +30,12 @@ class _TravelInformationScreenState
   void initState() {
     super.initState();
     _fetchNearbyPlaces(initialLatLng.latitude, initialLatLng.longitude);
+  }
+
+  @override
+  void dispose() {
+    _mapController?.dispose();
+    super.dispose();
   }
 
   Future<void> _fetchNearbyPlaces(double lat, double lng) async {
@@ -48,18 +53,35 @@ class _TravelInformationScreenState
     _moveCamera(LatLng(lat, lng));
   }
 
+  Future<void> _setLiked() async {}
+
   void _showMarkerInfoDialog(PlaceModel place) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(place.name),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(place.name),
+              GestureDetector(
+                onTap: () {},
+                child: isLiked
+                    ? const Icon(Icons.star)
+                    : const Icon(Icons.star_border),
+              ),
+            ],
+          ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Rating: ${place.rating}'),
-              Text('Price Level: ￦${place.priceLevel}0,000'),
+              place.rating != 0
+                  ? Text('Rating: ${place.rating}')
+                  : const Text('Rating: No Rating'),
+              place.priceLevel != 0
+                  ? Text('Price Level: About ￦${place.priceLevel}0,000')
+                  : const Text('Price Level: No Information'),
               Text('Business Status: ${place.businessStatus}'),
               Text('Address: ${place.address}'),
             ],
@@ -81,11 +103,21 @@ class _TravelInformationScreenState
     return Marker(
       markerId: MarkerId(place.name),
       position: LatLng(place.lat, place.lng),
-      infoWindow: InfoWindow(
-        title: place.name,
-        snippet:
-            'Rating: ${place.rating}, Business Status: ${place.businessStatus}, Address: ${place.address}',
-      ),
+      infoWindow: place.rating != 0
+          ? InfoWindow(
+              onTap: () {
+                _showMarkerInfoDialog(place);
+              },
+              title: place.name,
+              snippet: 'Rating: ${place.rating},',
+            )
+          : InfoWindow(
+              onTap: () {
+                _showMarkerInfoDialog(place);
+              },
+              title: place.name,
+              snippet: 'Rating: No Rating,',
+            ),
     );
   }
 

@@ -10,6 +10,6 @@ class PlaceModel {
         lng = json["geometry"]["location"]["lng"],
         address = json["vicinity"],
         placeId = json["place_id"],
-        rating = json["rating"] ?? "No Rating",
-        priceLevel = json["price_level"] ?? "No Information";
+        rating = json["rating"] ?? 0,
+        priceLevel = json["price_level"] ?? 0;
 }
