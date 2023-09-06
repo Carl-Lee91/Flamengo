@@ -1,53 +1,113 @@
 import 'dart:async';
 
 import 'package:flamengo/api/api_services.dart';
+import 'package:flamengo/api/model/place_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class TravelInformationScreen extends StatefulWidget {
+class TravelInformationScreen extends ConsumerStatefulWidget {
   const TravelInformationScreen({super.key});
 
   @override
-  State<TravelInformationScreen> createState() =>
+  ConsumerState<TravelInformationScreen> createState() =>
       _TravelInformationScreenState();
 }
 
-class _TravelInformationScreenState extends State<TravelInformationScreen> {
+class _TravelInformationScreenState
+    extends ConsumerState<TravelInformationScreen> {
+  final Future<List<PlaceModel>> places =
+      ApiService.fetchNearbyPlacesById(37.67, 126.75);
   GoogleMapController? _mapController;
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
   final Set<Marker> _markers = {};
   Marker? _selectedMarker;
 
-  final String apiKey = 'AIzaSyCawbZduh3V5Grm9jBVdM5hwUkNeTY8nys'; // 플러터 닷엔브 활용
+  static const initialLatLng = LatLng(37.67, 126.75);
+  static const initialZoom = 14.0;
 
-  final ApiService _apiService =
-      ApiService('AIzaSyCawbZduh3V5Grm9jBVdM5hwUkNeTY8nys');
-
-  Future<void> _fetchNearbyPlaces(double lat, double lng) async {
-    final results = await _apiService.fetchNearbyPlaces(lat, lng);
-
-    for (var place in results) {
-      final lat = place['geometry']['location']['lat'];
-      final lng = place['geometry']['location']['lng'];
-      final name = place['name'];
-
-      final marker = Marker(
-        markerId: MarkerId(name),
-        position: LatLng(lat, lng),
-        infoWindow: InfoWindow(title: name),
-      );
-
-      _markers.add(marker);
-    }
+  @override
+  void initState() {
+    super.initState();
+    _fetchNearbyPlaces(initialLatLng.latitude, initialLatLng.longitude);
   }
 
-  Future<void> _searchNearbyArea() async {
-    final LatLngBounds visibleBounds = await _mapController!.getVisibleRegion();
-    final LatLng center = visibleBounds.southwest;
-    final lat = center.latitude;
-    final lng = center.longitude;
+  Future<void> _fetchNearbyPlaces(double lat, double lng) async {
+    if (_markers.isEmpty) {
+      List<PlaceModel> placeList =
+          await ApiService.fetchNearbyPlacesById(lat, lng);
+      setState(() {
+        for (var place in placeList) {
+          final marker = _createMarker(place);
+          _markers.add(marker);
+        }
+      });
+    }
+
+    _moveCamera(LatLng(lat, lng));
+  }
+
+  void _showMarkerInfoDialog(PlaceModel place) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(place.name),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Rating: ${place.rating}'),
+              Text('Price Level: ￦${place.priceLevel}0,000'),
+              Text('Business Status: ${place.businessStatus}'),
+              Text('Address: ${place.address}'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Marker _createMarker(PlaceModel place) {
+    return Marker(
+      markerId: MarkerId(place.name),
+      position: LatLng(place.lat, place.lng),
+      infoWindow: InfoWindow(
+        title: place.name,
+        snippet:
+            'Rating: ${place.rating}, Business Status: ${place.businessStatus}, Address: ${place.address}',
+      ),
+    );
+  }
+
+  void _moveCamera(LatLng target) {
+    _mapController?.animateCamera(CameraUpdate.newLatLng(target));
+  }
+
+  void _searchNearbyArea() async {
+    if (_mapController == null) {
+      return;
+    }
+
+    final visibleBounds = await _mapController!.getVisibleRegion();
+    final centerLat =
+        (visibleBounds.southwest.latitude + visibleBounds.northeast.latitude) /
+            2;
+    final centerLng = (visibleBounds.southwest.longitude +
+            visibleBounds.northeast.longitude) /
+        2;
 
     _markers.clear();
-    _fetchNearbyPlaces(lat, lng);
+    await _fetchNearbyPlaces(centerLat, centerLng);
   }
 
   @override
@@ -58,13 +118,10 @@ class _TravelInformationScreenState extends State<TravelInformationScreen> {
           GoogleMap(
             onMapCreated: (controller) {
               _mapController = controller;
-              _fetchNearbyPlaces(37.551503, 126.988061);
             },
             markers: _markers,
-            initialCameraPosition: const CameraPosition(
-              target: LatLng(37.551503, 126.988061),
-              zoom: 14,
-            ),
+            initialCameraPosition:
+                const CameraPosition(target: initialLatLng, zoom: initialZoom),
             onTap: (LatLng latLng) {
               setState(() {
                 _selectedMarker = null;
@@ -93,15 +150,16 @@ class _TravelInformationScreenState extends State<TravelInformationScreen> {
                 child: Text(
                   _selectedMarker!.infoWindow.title ?? '',
                   style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
           ],
         ],
       ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.startFloat, // 좌측에 배치
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: _searchNearbyArea,
         child: const Icon(Icons.search),

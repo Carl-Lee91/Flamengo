@@ -5,6 +5,7 @@ import 'package:flamengo/screens/authentication/widget/form_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class PassingScreen extends ConsumerStatefulWidget {
   static String routeName = "tutorial";
@@ -17,8 +18,38 @@ class PassingScreen extends ConsumerStatefulWidget {
 }
 
 class _PassingScreenState extends ConsumerState<PassingScreen> {
-  void _onEnterAppTab() {
-    context.go("/dashboard");
+  void _onEnterAppTab() async {
+    PermissionStatus permissionStatus =
+        await Permission.locationWhenInUse.request();
+    if (permissionStatus.isGranted) {
+      context.go("/dashboard");
+    } else if (permissionStatus.isDenied) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Location Permission Denied"),
+            content:
+                const Text("Please allow location permission to continue."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  openAppSettings();
+                },
+                child: const Text("Settings"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Cancel"),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override

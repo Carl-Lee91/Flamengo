@@ -2,7 +2,6 @@ import 'package:flamengo/screens/dashboard/dashboard.dart';
 import 'package:flamengo/screens/information/travel_information_screen.dart';
 import 'package:flamengo/common/widgets/main_navigation/widget/main_appbar.dart';
 import 'package:flamengo/screens/recommend/local_recommend.dart';
-import 'package:flamengo/screens/schedule/travel_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +25,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     "dashboard",
     "information",
     "recommend",
-    "schedule",
   ];
 
   late int _selectedIndex = _tabs.indexOf(widget.tab);
@@ -56,10 +54,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             offstage: _selectedIndex != 2,
             child: const LocalRecommendScreen(),
           ),
-          Offstage(
-            offstage: _selectedIndex != 3,
-            child: const TravelScheduleScreen(),
-          ),
         ],
       ),
       bottomNavigationBar: NavigationBar(
@@ -86,12 +80,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               FontAwesomeIcons.solidStar,
             ),
             label: 'Recommend',
-          ),
-          NavigationDestination(
-            icon: FaIcon(
-              FontAwesomeIcons.mapLocationDot,
-            ),
-            label: 'Schedule',
           ),
         ],
       ),

@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -14,6 +15,8 @@ import 'package:flutter/foundation.dart'
 ///   options: DefaultFirebaseOptions.currentPlatform,
 /// );
 /// ```
+final apiKey = dotenv.get("FIREBASE_API_KEY");
+
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -46,8 +49,8 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBB_q5L8fuF5f2UAvbUkDg7xijaNOStFCk',
+  static FirebaseOptions web = FirebaseOptions(
+    apiKey: apiKey,
     appId: '1:65309275314:web:a320b92a5be80b1a1bc5ab',
     messagingSenderId: '65309275314',
     projectId: 'flamengocarllee',
@@ -55,16 +58,16 @@ class DefaultFirebaseOptions {
     storageBucket: 'flamengocarllee.appspot.com',
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBY1Nhq0YMxys6ynNe6D1Mhdgv8G1eLq8Y',
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: apiKey,
     appId: '1:65309275314:android:6b52248aa6eafdaa1bc5ab',
     messagingSenderId: '65309275314',
     projectId: 'flamengocarllee',
     storageBucket: 'flamengocarllee.appspot.com',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCkgDqcGdIRGtfjGlN45rvGyCGz2ULA0Hw',
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: apiKey,
     appId: '1:65309275314:ios:dc6ffc3f2d1bf6371bc5ab',
     messagingSenderId: '65309275314',
     projectId: 'flamengocarllee',
