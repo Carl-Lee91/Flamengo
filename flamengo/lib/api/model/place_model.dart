@@ -1,5 +1,5 @@
 class PlaceModel {
-  final String name, businessStatus, address, placeId;
+  final String name, address, placeId, businessStatus;
   final double lat, lng;
   final dynamic rating, priceLevel;
 

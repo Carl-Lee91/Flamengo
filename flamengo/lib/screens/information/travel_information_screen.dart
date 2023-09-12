@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flamengo/api/api_services.dart';
 import 'package:flamengo/api/model/place_model.dart';
+import 'package:flamengo/screens/recommend/view_models/recommend_view_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
@@ -25,7 +26,7 @@ class _TravelInformationScreenState
 
   GoogleMapController? _mapController;
   Marker? _selectedMarker;
-  bool isLiked = false;
+  bool _isLiked = false;
 
   @override
   void initState() {
@@ -54,6 +55,11 @@ class _TravelInformationScreenState
     _moveCamera(LatLng(lat, lng));
   }
 
+  void _onLikeTap(PlaceModel place) {
+    _isLiked = !_isLiked;
+    ref.read(recommendProvider.notifier).likeStore(place);
+  }
+
   void _showMarkerInfoDialog(PlaceModel place) {
     showDialog(
       context: context,
@@ -62,9 +68,19 @@ class _TravelInformationScreenState
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(place.name),
+              Flexible(
+                child: Text(
+                  place.name,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ),
               GestureDetector(
-                  onTap: () {}, child: const Icon(Icons.star_border)),
+                onTap: () => _onLikeTap(place),
+                child: _isLiked
+                    ? const Icon(Icons.star_border)
+                    : const Icon(Icons.star),
+              ),
             ],
           ),
           content: Column(
