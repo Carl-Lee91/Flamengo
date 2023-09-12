@@ -5,25 +5,23 @@ import 'package:flamengo/screens/authentication/repos/authentication_repo.dart';
 import 'package:flamengo/screens/recommend/repos/recommend_repos.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RecommendViewModels extends AsyncNotifier<void> {
+class RecommendViewModels extends FamilyAsyncNotifier<void, String> {
   late final RecommendRepository _recommendRepo;
+  late final _placeId;
 
   @override
-  FutureOr<void> build() {
+  FutureOr<void> build(String placeId) {
     _recommendRepo = ref.read(recommendRepo);
+    _placeId = placeId;
   }
 
   Future<void> likeStore(PlaceModel place) async {
-    state = const AsyncValue.loading();
     final user = ref.read(authRepo).user;
-    state = await AsyncValue.guard(
-      () async {
-        await _recommendRepo.likeStore(place.placeId, user!.uid, place);
-      },
-    );
+    await _recommendRepo.likeStore(_placeId, user!.uid, place);
   }
 }
 
-final recommendProvider = AsyncNotifierProvider<RecommendViewModels, void>(
+final recommendProvider =
+    AsyncNotifierProvider.family<RecommendViewModels, void, String>(
   () => RecommendViewModels(),
 );

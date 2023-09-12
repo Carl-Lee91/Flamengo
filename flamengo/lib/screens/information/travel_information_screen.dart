@@ -26,7 +26,7 @@ class _TravelInformationScreenState
 
   GoogleMapController? _mapController;
   Marker? _selectedMarker;
-  bool _isLiked = false;
+  late bool _isLiked = false;
 
   @override
   void initState() {
@@ -57,7 +57,8 @@ class _TravelInformationScreenState
 
   void _onLikeTap(PlaceModel place) {
     _isLiked = !_isLiked;
-    ref.read(recommendProvider.notifier).likeStore(place);
+    setState(() {});
+    ref.watch(recommendProvider(place.placeId).notifier).likeStore(place);
   }
 
   void _showMarkerInfoDialog(PlaceModel place) {
