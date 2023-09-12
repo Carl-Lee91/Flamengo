@@ -11,8 +11,9 @@ class PlaceListModel {
     required this.priceLevel,
   });
 
-  PlaceListModel.fromJson(Map<String, dynamic> json)
-      : name = json["name"],
+  PlaceListModel.fromJson({
+    required Map<String, dynamic> json,
+  })  : name = json["name"],
         businessStatus = json["businessStatus"],
         address = json["address"],
         placeId = json["placeId"],

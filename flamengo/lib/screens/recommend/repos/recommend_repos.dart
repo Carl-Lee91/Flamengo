@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flamengo/api/model/place_model.dart';
-import 'package:flamengo/screens/recommend/models/place_list_models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RecommendRepository {
@@ -28,14 +27,9 @@ class RecommendRepository {
     }
   }
 
-  Future<List<PlaceListModel>> getRecommendData() async {
-    final querySnapshot = await _db.collection("likes").get();
-    final data = querySnapshot.docs
-        .map((doc) => PlaceListModel.fromJson(
-              doc.data(),
-            ))
-        .toList();
-    return data;
+  Future<QuerySnapshot<Map<String, dynamic>>> getRecommendData() {
+    final query = _db.collection("likes");
+    return query.get();
   }
 }
 
