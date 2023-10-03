@@ -51,23 +51,19 @@ class _TravelInformationScreenState
   }
 
   Future<void> _onLikeTap(PlaceModel place) async {
-    final recommendNotifier =
-        ref.read(recommendProvider(place.placeId).notifier);
+    final recommendNotifier = ref.read(recommendProvider.notifier);
     await recommendNotifier.likeStore(place);
-    final isLiked = await recommendNotifier.onTapLikedStore();
+    final isLiked = await recommendNotifier.onTapLikedStore(place);
 
     setState(() {
       _isLiked = isLiked;
     });
-
-    print(_isLiked);
   }
 
   Future<void> _initIsLiked(
       PlaceModel place, ValueNotifier<bool> isLikedNotifier) async {
-    _isLiked = await ref
-        .read(recommendProvider(place.placeId).notifier)
-        .onTapLikedStore();
+    _isLiked =
+        await ref.read(recommendProvider.notifier).onTapLikedStore(place);
     isLikedNotifier.value = _isLiked;
   }
 
