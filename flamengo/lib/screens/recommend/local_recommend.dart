@@ -38,6 +38,7 @@ class LocalRecommendScreenState extends ConsumerState<LocalRecommendScreen> {
                 ),
                 itemBuilder: (context, index) {
                   var place = placeList[index];
+
                   return Container(
                     margin: const EdgeInsets.only(
                       bottom: Sizes.size10,
@@ -95,7 +96,7 @@ class LocalRecommendScreenState extends ConsumerState<LocalRecommendScreen> {
           },
           error: (error, stackTrace) => Center(
             child: Text(
-              "Please Setting Your Favorite Store!",
+              "Error..!",
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
               ),
