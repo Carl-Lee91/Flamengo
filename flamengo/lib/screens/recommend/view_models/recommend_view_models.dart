@@ -11,13 +11,20 @@ class RecommendViewModels extends FamilyAsyncNotifier<void, String> {
 
   @override
   FutureOr<void> build(String placeId) {
-    _recommendRepo = ref.read(recommendRepo);
     _placeId = placeId;
+    _recommendRepo = ref.read(recommendRepo);
   }
 
   Future<void> likeStore(PlaceModel place) async {
     final user = ref.read(authRepo).user;
     await _recommendRepo.likeStore(_placeId, user!.uid, place);
+  }
+
+  Future<bool> onTapLikedStore() async {
+    final user = ref.read(authRepo).user;
+    final onTapLiked =
+        await _recommendRepo.onTapLikedStore(_placeId, user!.uid);
+    return onTapLiked;
   }
 }
 

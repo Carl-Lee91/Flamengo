@@ -27,6 +27,12 @@ class RecommendRepository {
     }
   }
 
+  Future<bool> onTapLikedStore(String placeId, String uid) async {
+    final query = _db.collection("likes").doc("${placeId}000$uid");
+    final like = await query.get();
+    return like.exists ? true : false;
+  }
+
   Future<QuerySnapshot<Map<String, dynamic>>> getRecommendData() {
     final query = _db.collection("likes");
     return query.get();

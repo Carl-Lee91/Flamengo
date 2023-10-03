@@ -26,7 +26,7 @@ class _TravelInformationScreenState
 
   GoogleMapController? _mapController;
   Marker? _selectedMarker;
-  late bool _isLiked = false;
+  bool _isLiked = false;
 
   @override
   void initState() {
@@ -34,17 +34,12 @@ class _TravelInformationScreenState
     _fetchNearbyPlaces(initialLatLng.latitude, initialLatLng.longitude);
   }
 
-  @override
-  void dispose() {
-    _mapController?.dispose();
-    super.dispose();
-  }
-
   Future<void> _fetchNearbyPlaces(double lat, double lng) async {
     if (_markers.isEmpty) {
       List<PlaceModel> placeList =
           await ApiService.fetchNearbyPlacesById(lat, lng);
       setState(() {
+        _markers.clear();
         for (var place in placeList) {
           final marker = _createMarker(place);
           _markers.add(marker);
@@ -55,13 +50,29 @@ class _TravelInformationScreenState
     _moveCamera(LatLng(lat, lng));
   }
 
-  void _onLikeTap(PlaceModel place) {
-    _isLiked = !_isLiked;
-    setState(() {});
-    ref.watch(recommendProvider(place.placeId).notifier).likeStore(place);
+  Future<void> _onLikeTap(PlaceModel place) async {
+    final recommendNotifier =
+        ref.read(recommendProvider(place.placeId).notifier);
+    await recommendNotifier.likeStore(place);
+    final isLiked = await recommendNotifier.onTapLikedStore();
+
+    setState(() {
+      _isLiked = isLiked;
+    });
+
+    print(_isLiked);
+  }
+
+  Future<void> _initIsLiked(
+      PlaceModel place, ValueNotifier<bool> isLikedNotifier) async {
+    _isLiked = await ref
+        .read(recommendProvider(place.placeId).notifier)
+        .onTapLikedStore();
+    isLikedNotifier.value = _isLiked;
   }
 
   void _showMarkerInfoDialog(PlaceModel place) {
+    ValueNotifier<bool> isLikedNotifier = ValueNotifier<bool>(_isLiked);
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -77,10 +88,18 @@ class _TravelInformationScreenState
                 ),
               ),
               GestureDetector(
-                onTap: () => _onLikeTap(place),
-                child: _isLiked
-                    ? const Icon(Icons.star_border)
-                    : const Icon(Icons.star),
+                onTap: () async {
+                  await _onLikeTap(place);
+                  isLikedNotifier.value = _isLiked;
+                },
+                child: ValueListenableBuilder<bool>(
+                  valueListenable: isLikedNotifier,
+                  builder: (context, isLiked, child) {
+                    return isLiked
+                        ? const Icon(Icons.star)
+                        : const Icon(Icons.star_border);
+                  },
+                ),
               ),
             ],
           ),
@@ -88,12 +107,12 @@ class _TravelInformationScreenState
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              place.rating != 0
-                  ? Text('Rating: ${place.rating}')
-                  : const Text('Rating: No Rating'),
-              place.priceLevel != 0
-                  ? Text('Price Level: About ￦${place.priceLevel}0,000')
-                  : const Text('Price Level: No Information'),
+              Text(place.rating != 0
+                  ? 'Rating: ${place.rating}'
+                  : 'Rating: No Rating'),
+              Text(place.priceLevel != 0
+                  ? 'Price Level: About ￦${place.priceLevel}0,000'
+                  : 'Price Level: No Information'),
               Text('Business Status: ${place.businessStatus}'),
               Text('Address: ${place.address}'),
             ],
@@ -109,6 +128,7 @@ class _TravelInformationScreenState
         );
       },
     );
+    _initIsLiked(place, isLikedNotifier);
   }
 
   Marker _createMarker(PlaceModel place) {
@@ -121,14 +141,14 @@ class _TravelInformationScreenState
                 _showMarkerInfoDialog(place);
               },
               title: place.name,
-              snippet: "No Rating",
+              snippet: 'No Rating',
             )
           : InfoWindow(
               onTap: () {
                 _showMarkerInfoDialog(place);
               },
               title: place.name,
-              snippet: "Rating : ${place.rating}",
+              snippet: 'Rating : ${place.rating}',
             ),
     );
   }
@@ -137,7 +157,7 @@ class _TravelInformationScreenState
     _mapController?.animateCamera(CameraUpdate.newLatLng(target));
   }
 
-  void _searchNearbyArea() async {
+  Future<void> _searchNearbyArea() async {
     if (_mapController == null) {
       return;
     }
