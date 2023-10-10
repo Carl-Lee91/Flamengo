@@ -14,7 +14,87 @@
       },
       "oauth_client": [
         {
-          "client_id": "65309275314-dno42peleic13vvomdkm7oaeijblm3pf.apps.googleusercontent.com",
+          "client_id": "65309275314-fkas00s95j7b1f4o79kdtitdhrv4i838.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flamengo",
+            "certificate_hash": "c9ba75469fba5ab566b2d96c2c9fc56e8ce9e00b"
+          }
+        },
+        {
+          "client_id": "65309275314-qk39t6b2bcpoo0de53hkkdehhbau8g6j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY1Nhq0YMxys6ynNe6D1Mhdgv8G1eLq8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "65309275314-dno42peleic13vvomdkm7oaeijblm3pf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "65309275314-mp1ppbaf5e1b56i2is0t0u77nrqvp13o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flamengo.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65309275314:android:62054e74d49138ef1bc5ab",
+        "android_client_info": {
+          "package_name": "com.travel.flamengo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "65309275314-qk39t6b2bcpoo0de53hkkdehhbau8g6j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY1Nhq0YMxys6ynNe6D1Mhdgv8G1eLq8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "65309275314-dno42peleic13vvomdkm7oaeijblm3pf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "65309275314-mp1ppbaf5e1b56i2is0t0u77nrqvp13o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flamengo.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65309275314:android:601fdc1a158e5bea1bc5ab",
+        "android_client_info": {
+          "package_name": "flutter.flamengo.travel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "65309275314-qk39t6b2bcpoo0de53hkkdehhbau8g6j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

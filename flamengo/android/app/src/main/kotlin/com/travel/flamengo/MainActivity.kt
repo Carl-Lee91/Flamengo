@@ -1,4 +1,4 @@
-package com.example.flamengo
+package com.travel.flamengo
 
 import io.flutter.embedding.android.FlutterActivity
 

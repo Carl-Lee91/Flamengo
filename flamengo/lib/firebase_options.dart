@@ -60,7 +60,7 @@ class DefaultFirebaseOptions {
 
   static FirebaseOptions android = FirebaseOptions(
     apiKey: apiKey,
-    appId: '1:65309275314:android:6b52248aa6eafdaa1bc5ab',
+    appId: '1:65309275314:android:62054e74d49138ef1bc5ab',
     messagingSenderId: '65309275314',
     projectId: 'flamengocarllee',
     storageBucket: 'flamengocarllee.appspot.com',
@@ -72,6 +72,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '65309275314',
     projectId: 'flamengocarllee',
     storageBucket: 'flamengocarllee.appspot.com',
+    androidClientId:
+        '65309275314-fkas00s95j7b1f4o79kdtitdhrv4i838.apps.googleusercontent.com',
     iosClientId:
         '65309275314-tmlfeoo20dsbr85hvmqcov5m31sh1vup.apps.googleusercontent.com',
     iosBundleId: 'com.example.flamengo',

@@ -30,7 +30,7 @@ class MyApp extends ConsumerWidget {
     return SafeArea(
       child: MaterialApp.router(
         routerConfig: ref.watch(routerProvider),
-        debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           appBarTheme: const AppBarTheme(
             iconTheme: IconThemeData(
