@@ -63,7 +63,7 @@ class _PasswordScreenState extends ConsumerState<PasswordScreen> {
     _passwordController.clear();
   }
 
-  void _onTapToMainNavigationScreen() {
+  Future<void> _onTapToMainNavigationScreen() async {
     if (!_isPasswordLengthValid() || !_isPasswordPatternValid()) return;
     final state = ref.read(signUpForm.notifier).state;
     ref.read(signUpForm.notifier).state = {...state, "password": _password};
