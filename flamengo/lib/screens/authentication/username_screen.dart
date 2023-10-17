@@ -117,7 +117,7 @@ class _UsernameScreenState extends ConsumerState<UsernameScreen> {
                   onTap: _onTapToEmailScreen,
                   child: FormBtn(
                     disabled: _username.isEmpty || _isUsernameValid() != null,
-                    text: "Create password",
+                    text: "Write email",
                   ),
                 ),
               ],
