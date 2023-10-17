@@ -1,3 +1,4 @@
+import 'package:flamengo/screens/authentication/repos/authentication_repo.dart';
 import 'package:flamengo/screens/recommend/models/place_list_models.dart';
 import 'package:flamengo/screens/recommend/repos/recommend_repos.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -7,7 +8,8 @@ class RecommendListViewModel extends AsyncNotifier<List<PlaceListModel>> {
   List<PlaceListModel> _list = [];
 
   Future<List<PlaceListModel>> _getRecommendData() async {
-    final result = await _recommendRepo.getRecommendData();
+    final user = ref.read(authRepo).user;
+    final result = await _recommendRepo.getRecommendData(user!.uid);
     final places = result.docs.map(
       (doc) => PlaceListModel.fromJson(
         json: doc.data(),

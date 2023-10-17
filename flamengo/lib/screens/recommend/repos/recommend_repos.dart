@@ -6,7 +6,11 @@ class RecommendRepository {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Future<void> likeStore(String placeId, String uid, PlaceModel place) async {
-    final query = _db.collection("likes").doc("${placeId}000$uid");
+    final query = _db
+        .collection("users")
+        .doc(uid)
+        .collection("likes")
+        .doc("${placeId}000$uid");
     final like = await query.get();
 
     if (!like.exists) {
@@ -28,13 +32,17 @@ class RecommendRepository {
   }
 
   Future<bool> onTapLikedStore(String placeId, String uid) async {
-    final query = _db.collection("likes").doc("${placeId}000$uid");
+    final query = _db
+        .collection("users")
+        .doc(uid)
+        .collection("likes")
+        .doc("${placeId}000$uid");
     final like = await query.get();
     return like.exists ? true : false;
   }
 
-  Future<QuerySnapshot<Map<String, dynamic>>> getRecommendData() {
-    final query = _db.collection("likes");
+  Future<QuerySnapshot<Map<String, dynamic>>> getRecommendData(String uid) {
+    final query = _db.collection("users").doc(uid).collection("likes");
     return query.get();
   }
 }
