@@ -44,7 +44,7 @@ final routerProvider = Provider(
           builder: (context, state) => const PassingScreen(),
         ),
         GoRoute(
-          path: "/:tab(dashboard|information|recommend|schedule)",
+          path: "/:tab(dashboard|information|recommend)",
           name: MainNavigationScreen.routeName,
           builder: (context, state) {
             final tab = state.pathParameters["tab"]!;
