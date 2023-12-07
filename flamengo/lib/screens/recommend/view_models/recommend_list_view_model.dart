@@ -7,7 +7,7 @@ class RecommendListViewModel extends AsyncNotifier<List<PlaceListModel>> {
   late final RecommendRepository _recommendRepo;
   List<PlaceListModel> _list = [];
 
-  Future<List<PlaceListModel>> _getRecommendData() async {
+  Future<List<PlaceListModel>> getRecommendData() async {
     final user = ref.read(authRepo).user;
     final result = await _recommendRepo.getRecommendData(user!.uid);
     final places = result.docs.map(
@@ -21,12 +21,12 @@ class RecommendListViewModel extends AsyncNotifier<List<PlaceListModel>> {
   @override
   FutureOr<List<PlaceListModel>> build() async {
     _recommendRepo = ref.read(recommendRepo);
-    _list = await _getRecommendData();
+    _list = await getRecommendData();
     return _list;
   }
 
   Future<void> refresh() async {
-    final places = await _getRecommendData();
+    final places = await getRecommendData();
     _list = places;
     state = AsyncValue.data(places);
   }
