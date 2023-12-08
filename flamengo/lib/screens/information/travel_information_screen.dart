@@ -19,9 +19,9 @@ class TravelInformationScreen extends ConsumerStatefulWidget {
 class _TravelInformationScreenState
     extends ConsumerState<TravelInformationScreen> {
   final Set<Marker> _markers = {};
-  final Geolocator geolocator = Geolocator();
 
-  static const initialLatLng = LatLng(37.67, 126.75);
+  static const initialLatLng = LatLng(129.0040871, 35.1487591);
+
   static const initialZoom = 14.0;
 
   GoogleMapController? _mapController;
@@ -31,11 +31,24 @@ class _TravelInformationScreenState
   @override
   void initState() {
     super.initState();
-    _fetchNearbyPlaces(initialLatLng.latitude, initialLatLng.longitude);
+    _initPosition();
+  }
+
+  Future<void> _initPosition() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best);
+    final lat = position.latitude;
+    final lng = position.longitude;
+
+    _moveCamera(LatLng(lat, lng)); //TODO:안되면 이 코드 수정할것 _fetchNearbyPlaces와 함께
   }
 
   Future<void> _fetchNearbyPlaces(double lat, double lng) async {
     if (_markers.isEmpty) {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
+      final lat = position.latitude;
+      final lng = position.longitude;
       List<PlaceModel> placeList =
           await ApiService.fetchNearbyPlacesById(lat, lng);
       setState(() {
