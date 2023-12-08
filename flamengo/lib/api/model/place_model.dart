@@ -1,7 +1,7 @@
 class PlaceModel {
   final String name, address, placeId, businessStatus;
   final double lat, lng;
-  final dynamic rating, priceLevel;
+  final num? rating, priceLevel;
 
   PlaceModel.fromJson(Map<String, dynamic> json)
       : name = json["name"],
@@ -12,4 +12,4 @@ class PlaceModel {
         placeId = json["place_id"],
         rating = json["rating"] ?? 0,
         priceLevel = json["price_level"] ?? 0;
-}
+} // TODO: 썸네일 가져올 것

@@ -1,6 +1,6 @@
 class PlaceListModel {
   final String name, address, placeId, businessStatus;
-  final dynamic rating, priceLevel;
+  final num? rating, priceLevel;
 
   PlaceListModel({
     required this.name,
@@ -19,15 +19,5 @@ class PlaceListModel {
         placeId = json["placeId"],
         rating = json["rating"] ?? 0,
         priceLevel = json["priceLevel"] ?? 0;
-
-  Map<String, dynamic> toJson() {
-    return {
-      "name": name,
-      "businessStatus": businessStatus,
-      "address": address,
-      "placeId": placeId,
-      "rating": rating,
-      "priceLevel": priceLevel,
-    };
-  }
 }
+  // TODO:썸네일 가져올것
