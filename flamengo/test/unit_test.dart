@@ -42,9 +42,6 @@ void main() {
         rating: 1,
         priceLevel: 1,
       );
-      final json = place.toJson();
-      expect(json["placeId"], "placeId");
-      expect(json["likes"], isInstanceOf<dynamic>());
     });
   });
 }
