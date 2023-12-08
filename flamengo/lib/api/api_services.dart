@@ -9,7 +9,7 @@ class ApiService {
     List<PlaceModel> placeModelInstances = [];
     final apiKey = dotenv.get("MAP_API_KEY");
     final url = Uri.parse(
-        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng&radius=1000&type=restaurant|cafe&key=$apiKey");
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng&radius=1000&type=food&key=$apiKey");
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final Map<String, dynamic> placeDBs = jsonDecode(response.body);
