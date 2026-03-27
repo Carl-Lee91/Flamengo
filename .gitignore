@@ -45,3 +45,12 @@ app.*.map.json
 
 # Api file
 *.env
+ios/Flutter/Secrets.xcconfig
+
+# FVM Version Cache
+.fvm/
+
+# Build Runner File
+**/*.g.dart
+**/*.freezed.dart
+**/*.config.dart

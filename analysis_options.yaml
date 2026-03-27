@@ -1,0 +1,74 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    #=======================================================#
+    #             협업 및 코드 일관성 (Collaboration)         
+    #=======================================================#
+
+    # public 멤버에 DartDoc 주석 작성을 권고하여 코드의 문서화를 돕습니다.
+    # public_member_api_docs: true
+
+    # 여러 줄 목록의 마지막에 쉼표를 추가하여 Git diff를 깔끔하게 유지합니다.
+    require_trailing_commas: true
+
+    # 항상 패키지 절대 경로로 import하여 코드의 이동 및 분석을 쉽게 합니다.
+    always_use_package_imports: true
+
+    # 문자열에 작은따옴표(')를 사용하도록 통일합니다.
+    prefer_single_quotes: true
+
+    # 위젯의 child/children 프로퍼티를 가장 마지막에 작성하여 가독성을 높입니다.
+    sort_child_properties_last: true
+
+
+    #=======================================================#
+    #         잠재적 오류 및 버그 방지 (Error Prevention)         
+    #=======================================================#
+
+    # async-await 갭 이후에 BuildContext를 사용하는 위험한 코드를 방지합니다.
+    use_build_context_synchronously: true
+
+    # await가 필요한 Future를 그냥 호출하는 실수를 방지합니다.
+    unawaited_futures: true
+    
+    # StatefulWidget의 createState() 메서드 안에 로직을 작성하는 것을 방지합니다.
+    no_logic_in_create_state: true
+
+    # print() 대신 logger나 debugPrint 사용을 권장하여 프로덕션 코드의 품질을 높입니다.
+    avoid_print: true
+
+
+    #=======================================================#
+    #          메모리 및 리소스 누수 방지 (Memory Safety)           
+    #=======================================================#
+
+    # Controller, Stream 등 dispose가 필요한 필드의 누락을 방지합니다.
+    close_sinks: true
+
+    # StreamSubscription의 cancel() 호출 누락을 방지합니다.
+    cancel_subscriptions: true
+
+
+    #=======================================================#
+    #     성능 최적화 및 모던 Dart 스타일 (Performance & Style)    
+    #=======================================================#
+
+    # 'const' 키워드 관련 규칙들
+    prefer_const_constructors: true
+    prefer_const_declarations: true
+    prefer_const_constructors_in_immutables: true
+    prefer_const_literals_to_create_immutables: true
+
+    # 변경되지 않는 변수는 final로 선언하여 불변성을 지향하도록 합니다.
+    prefer_final_fields: true
+    
+    # 최신 Dart의 super-initializer 문법 사용을 권장하여 코드를 간결하게 합니다.
+    use_super_parameters: true
+
+    # 공백을 위해 무거운 Container 대신 가벼운 SizedBox 사용을 권장합니다.
+    sized_box_for_whitespace: true
+
+    # list.length == 0 대신 list.isEmpty/isNotEmpty 사용을 권장하여 가독성을 높입니다.
+    prefer_is_empty: true
+    prefer_is_not_empty: true
