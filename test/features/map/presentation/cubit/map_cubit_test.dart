@@ -1,9 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-
 import 'package:flamengo/features/map/presentation/cubit/map_cubit.dart';
 import 'package:flamengo/features/map/presentation/cubit/map_state.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../../../helpers/mocks.dart';
 import '../../../../helpers/test_data.dart';
@@ -32,12 +31,14 @@ void main() {
       blocTest<MapCubit, MapState>(
         'emits loading then loaded with places and markers',
         setUp: () {
-          when(() => mockMapRepository.getNearbyPlaces(
-                37.5665,
-                126.978,
-                radius: any(named: 'radius'),
-                type: any(named: 'type'),
-              )).thenAnswer((_) async => testPlaces);
+          when(
+            () => mockMapRepository.getNearbyPlaces(
+              37.5665,
+              126.978,
+              radius: any(named: 'radius'),
+              type: any(named: 'type'),
+            ),
+          ).thenAnswer((_) async => testPlaces);
         },
         build: buildCubit,
         act: (cubit) => cubit.searchNearbyPlaces(37.5665, 126.978),
@@ -53,12 +54,14 @@ void main() {
       blocTest<MapCubit, MapState>(
         'emits loading then error on failure',
         setUp: () {
-          when(() => mockMapRepository.getNearbyPlaces(
-                any(),
-                any(),
-                radius: any(named: 'radius'),
-                type: any(named: 'type'),
-              )).thenThrow(Exception('API error'));
+          when(
+            () => mockMapRepository.getNearbyPlaces(
+              any(),
+              any(),
+              radius: any(named: 'radius'),
+              type: any(named: 'type'),
+            ),
+          ).thenThrow(Exception('API error'));
         },
         build: buildCubit,
         act: (cubit) => cubit.searchNearbyPlaces(37.5665, 126.978),
@@ -73,12 +76,14 @@ void main() {
       blocTest<MapCubit, MapState>(
         'emits empty places when no results',
         setUp: () {
-          when(() => mockMapRepository.getNearbyPlaces(
-                any(),
-                any(),
-                radius: any(named: 'radius'),
-                type: any(named: 'type'),
-              )).thenAnswer((_) async => []);
+          when(
+            () => mockMapRepository.getNearbyPlaces(
+              any(),
+              any(),
+              radius: any(named: 'radius'),
+              type: any(named: 'type'),
+            ),
+          ).thenAnswer((_) async => []);
         },
         build: buildCubit,
         act: (cubit) => cubit.searchNearbyPlaces(37.5665, 126.978),
@@ -94,14 +99,14 @@ void main() {
     group('getPlaceById', () {
       test('returns place when found', () {
         final cubit = buildCubit();
-        cubit.emit(MapState(nearbyPlaces: testPlaces));
+        cubit.emit(const MapState(nearbyPlaces: testPlaces));
         expect(cubit.getPlaceById('place-1')?.name, 'Test Restaurant');
         cubit.close();
       });
 
       test('returns null when not found', () {
         final cubit = buildCubit();
-        cubit.emit(MapState(nearbyPlaces: testPlaces));
+        cubit.emit(const MapState(nearbyPlaces: testPlaces));
         expect(cubit.getPlaceById('nonexistent'), isNull);
         cubit.close();
       });

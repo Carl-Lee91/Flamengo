@@ -1,10 +1,9 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-
 import 'package:flamengo/features/bucket_list/domain/entities/bucket_item.dart';
 import 'package:flamengo/features/bucket_list/presentation/cubit/bucket_list_cubit.dart';
 import 'package:flamengo/features/bucket_list/presentation/cubit/bucket_list_state.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../../../helpers/mocks.dart';
 import '../../../../helpers/test_data.dart';
@@ -34,8 +33,9 @@ void main() {
       blocTest<BucketListCubit, BucketListState>(
         'emits loading then loaded with items',
         setUp: () {
-          when(() => mockRepository.getAll(testUid))
-              .thenAnswer((_) async => testBucketItems);
+          when(
+            () => mockRepository.getAll(testUid),
+          ).thenAnswer((_) async => testBucketItems);
         },
         build: buildCubit,
         act: (cubit) => cubit.loadItems(testUid),
@@ -51,8 +51,9 @@ void main() {
       blocTest<BucketListCubit, BucketListState>(
         'emits loading then error on failure',
         setUp: () {
-          when(() => mockRepository.getAll(testUid))
-              .thenThrow(Exception('Failed to load'));
+          when(
+            () => mockRepository.getAll(testUid),
+          ).thenThrow(Exception('Failed to load'));
         },
         build: buildCubit,
         act: (cubit) => cubit.loadItems(testUid),
@@ -67,8 +68,9 @@ void main() {
       blocTest<BucketListCubit, BucketListState>(
         'emits empty lists when no items exist',
         setUp: () {
-          when(() => mockRepository.getAll(testUid))
-              .thenAnswer((_) async => []);
+          when(
+            () => mockRepository.getAll(testUid),
+          ).thenAnswer((_) async => []);
         },
         build: buildCubit,
         act: (cubit) => cubit.loadItems(testUid),
@@ -94,8 +96,7 @@ void main() {
           isA<BucketListState>()
               .having((s) => s.selectedCategory, 'category', 'food')
               .having((s) => s.filteredItems.length, 'count', 1)
-              .having(
-                  (s) => s.filteredItems.first.name, 'name', 'Sushi Dai'),
+              .having((s) => s.filteredItems.first.name, 'name', 'Sushi Dai'),
         ],
       );
 
@@ -124,8 +125,11 @@ void main() {
         expect: () => [
           isA<BucketListState>()
               .having((s) => s.selectedCategory, 'category', isNull)
-              .having((s) => s.filteredItems.length, 'count',
-                  testBucketItems.length),
+              .having(
+                (s) => s.filteredItems.length,
+                'count',
+                testBucketItems.length,
+              ),
         ],
       );
 
@@ -135,14 +139,17 @@ void main() {
         seed: () => seedState,
         act: (cubit) => cubit.filterByCategory('nightlife'),
         expect: () => [
-          isA<BucketListState>()
-              .having((s) => s.filteredItems, 'filtered', isEmpty),
+          isA<BucketListState>().having(
+            (s) => s.filteredItems,
+            'filtered',
+            isEmpty,
+          ),
         ],
       );
     });
 
     group('addItem', () {
-      final newItem = BucketItem(
+      const newItem = BucketItem(
         id: 'item-new',
         name: 'New Place',
         address: '789 New St',
@@ -157,10 +164,12 @@ void main() {
       blocTest<BucketListCubit, BucketListState>(
         'adds item and reloads list',
         setUp: () {
-          when(() => mockRepository.addItem(testUid, any()))
-              .thenAnswer((_) async {});
-          when(() => mockRepository.getAll(testUid))
-              .thenAnswer((_) async => [...testBucketItems, newItem]);
+          when(
+            () => mockRepository.addItem(testUid, any()),
+          ).thenAnswer((_) async {});
+          when(
+            () => mockRepository.getAll(testUid),
+          ).thenAnswer((_) async => [...testBucketItems, newItem]);
         },
         build: buildCubit,
         act: (cubit) async {
@@ -188,10 +197,12 @@ void main() {
       blocTest<BucketListCubit, BucketListState>(
         'marks item as visited and reloads',
         setUp: () {
-          when(() => mockRepository.getAll(testUid))
-              .thenAnswer((_) async => testBucketItems);
-          when(() => mockRepository.updateItem(testUid, any()))
-              .thenAnswer((_) async {});
+          when(
+            () => mockRepository.getAll(testUid),
+          ).thenAnswer((_) async => testBucketItems);
+          when(
+            () => mockRepository.updateItem(testUid, any()),
+          ).thenAnswer((_) async {});
         },
         build: buildCubit,
         act: (cubit) async {
@@ -208,10 +219,12 @@ void main() {
       blocTest<BucketListCubit, BucketListState>(
         'deletes item and reloads',
         setUp: () {
-          when(() => mockRepository.getAll(testUid))
-              .thenAnswer((_) async => testBucketItems);
-          when(() => mockRepository.deleteItem(testUid, 'item-1'))
-              .thenAnswer((_) async {});
+          when(
+            () => mockRepository.getAll(testUid),
+          ).thenAnswer((_) async => testBucketItems);
+          when(
+            () => mockRepository.deleteItem(testUid, 'item-1'),
+          ).thenAnswer((_) async {});
         },
         build: buildCubit,
         act: (cubit) async {
