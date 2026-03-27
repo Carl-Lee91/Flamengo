@@ -5,9 +5,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related
@@ -46,6 +48,9 @@ app.*.map.json
 # Api file
 *.env
 ios/Flutter/Secrets.xcconfig
+
+# Firebase CLI logs
+firepit-log.txt
 
 # FVM Version Cache
 .fvm/
