@@ -15,7 +15,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 ///   options: DefaultFirebaseOptions.currentPlatform,
 /// );
 /// ```
-final apiKey = dotenv.get("FIREBASE_API_KEY");
+final apiKey = dotenv.get('FIREBASE_API_KEY');
 
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
