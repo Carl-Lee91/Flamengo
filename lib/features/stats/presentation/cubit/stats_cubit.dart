@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
+import 'package:flamengo/core/utils/logger.dart';
 import 'package:flamengo/features/bucket_list/domain/repositories/bucket_list_repository.dart';
 import 'package:flamengo/features/stats/domain/entities/user_stats.dart';
 import 'package:flamengo/features/stats/presentation/cubit/stats_state.dart';
@@ -30,6 +31,10 @@ class StatsCubit extends Cubit<StatsState> {
       final citiesSet =
           visited.map((i) => '${i.country}_${i.city}').toSet();
 
+      log.i('[Stats] loaded: ${items.length} total, '
+          '${visited.length} visited, '
+          '${countriesSet.length} countries');
+
       emit(StatsState.loaded(UserStats(
         totalPlaces: items.length,
         visitedPlaces: visited.length,
@@ -37,7 +42,8 @@ class StatsCubit extends Cubit<StatsState> {
         cities: citiesSet.length,
         categoryStats: categoryStats,
       )));
-    } catch (e) {
+    } catch (e, st) {
+      log.e('[Stats] loadStats failed', error: e, stackTrace: st);
       emit(StatsState.error(e.toString()));
     }
   }

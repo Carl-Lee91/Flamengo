@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:flamengo/core/utils/logger.dart';
 import 'package:flamengo/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flamengo/features/auth/presentation/screens/login_screen.dart';
 import 'package:flamengo/features/bucket_list/presentation/screens/add_bucket_item_screen.dart';
@@ -15,16 +19,26 @@ import 'package:flamengo/shell/main_shell_screen.dart';
 import 'package:flamengo/core/router/route_names.dart';
 
 GoRouter createRouter(AuthRepository authRepository) {
+  final refreshNotifier = _AuthRefreshListenable(authRepository.authStateChanges);
+
   return GoRouter(
     initialLocation: RoutePaths.bucketList,
+    refreshListenable: refreshNotifier,
     redirect: (context, state) {
       final isLoggedIn = authRepository.currentUser != null;
       final isLoginRoute = state.matchedLocation == RoutePaths.login;
 
-      if (!isLoggedIn && !isLoginRoute) return RoutePaths.login;
-      if (isLoggedIn && isLoginRoute) return RoutePaths.bucketList;
+      if (!isLoggedIn && !isLoginRoute) {
+        log.i('[Router] redirect → login (not authenticated)');
+        return RoutePaths.login;
+      }
+      if (isLoggedIn && isLoginRoute) {
+        log.i('[Router] redirect → bucketList (already authenticated)');
+        return RoutePaths.bucketList;
+      }
       return null;
     },
+    observers: [_RouterLogger()],
     routes: [
       GoRoute(
         path: RoutePaths.login,
@@ -108,4 +122,35 @@ GoRouter createRouter(AuthRepository authRepository) {
       ),
     ],
   );
+}
+
+class _AuthRefreshListenable extends ChangeNotifier {
+  _AuthRefreshListenable(Stream<dynamic> stream) {
+    _subscription = stream.listen((_) => notifyListeners());
+  }
+
+  late final StreamSubscription<dynamic> _subscription;
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+}
+
+class _RouterLogger extends NavigatorObserver {
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    log.i('[Router] push → ${route.settings.name ?? route.settings.toString()}');
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    log.i('[Router] pop ← ${route.settings.name ?? route.settings.toString()}');
+  }
+
+  @override
+  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
+    log.i('[Router] replace → ${newRoute?.settings.name ?? newRoute?.settings.toString()}');
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
+import 'package:flamengo/core/utils/logger.dart';
 import 'package:flamengo/features/bucket_list/domain/entities/bucket_item.dart';
 import 'package:flamengo/features/bucket_list/domain/repositories/bucket_list_repository.dart';
 import 'package:flamengo/features/footprint/domain/entities/footprint.dart';
@@ -27,13 +28,17 @@ class FootprintCubit extends Cubit<FootprintState> {
       final totalCities =
           visited.map((item) => '${item.country}_${item.city}').toSet().length;
 
+      log.i('[Footprint] loaded: ${visited.length} visited, '
+          '${byCountry.keys.length} countries, $totalCities cities');
+
       emit(FootprintState.loaded(FootprintData(
         visitedItems: visited,
         byCountry: byCountry,
         totalCountries: byCountry.keys.length,
         totalCities: totalCities,
       )));
-    } catch (e) {
+    } catch (e, st) {
+      log.e('[Footprint] loadFootprint failed', error: e, stackTrace: st);
       emit(FootprintState.error(e.toString()));
     }
   }

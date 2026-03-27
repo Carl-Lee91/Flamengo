@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-
 import 'package:flamengo/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:flamengo/features/auth/presentation/cubit/auth_state.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../../../helpers/mocks.dart';
 import '../../../../helpers/test_data.dart';
@@ -30,29 +29,27 @@ void main() {
       blocTest<AuthCubit, AuthState>(
         'emits [authenticated] when user is logged in',
         setUp: () {
-          when(() => mockAuthRepository.authStateChanges)
-              .thenAnswer((_) => Stream.value(testUser));
+          when(
+            () => mockAuthRepository.authStateChanges,
+          ).thenAnswer((_) => Stream.value(testUser));
         },
         build: buildCubit,
         act: (cubit) => cubit.checkAuthStatus(),
         wait: const Duration(milliseconds: 100),
-        expect: () => [
-          AuthState.authenticated(testUser),
-        ],
+        expect: () => [const AuthState.authenticated(testUser)],
       );
 
       blocTest<AuthCubit, AuthState>(
         'emits [unauthenticated] when user is not logged in',
         setUp: () {
-          when(() => mockAuthRepository.authStateChanges)
-              .thenAnswer((_) => Stream.value(null));
+          when(
+            () => mockAuthRepository.authStateChanges,
+          ).thenAnswer((_) => Stream.value(null));
         },
         build: buildCubit,
         act: (cubit) => cubit.checkAuthStatus(),
         wait: const Duration(milliseconds: 100),
-        expect: () => [
-          const AuthState.unauthenticated(),
-        ],
+        expect: () => [const AuthState.unauthenticated()],
       );
     });
 
@@ -60,29 +57,28 @@ void main() {
       blocTest<AuthCubit, AuthState>(
         'emits [loading, authenticated] on success',
         setUp: () {
-          when(() => mockAuthRepository.signInWithGoogle())
-              .thenAnswer((_) async => testUser);
+          when(
+            () => mockAuthRepository.signInWithGoogle(),
+          ).thenAnswer((_) async => testUser);
         },
         build: buildCubit,
         act: (cubit) => cubit.signInWithGoogle(),
         expect: () => [
           const AuthState.loading(),
-          AuthState.authenticated(testUser),
+          const AuthState.authenticated(testUser),
         ],
       );
 
       blocTest<AuthCubit, AuthState>(
         'emits [loading, error] on failure',
         setUp: () {
-          when(() => mockAuthRepository.signInWithGoogle())
-              .thenThrow(Exception('Google sign in failed'));
+          when(
+            () => mockAuthRepository.signInWithGoogle(),
+          ).thenThrow(Exception('Google sign in failed'));
         },
         build: buildCubit,
         act: (cubit) => cubit.signInWithGoogle(),
-        expect: () => [
-          const AuthState.loading(),
-          isA<AuthState>(),
-        ],
+        expect: () => [const AuthState.loading(), isA<AuthState>()],
       );
     });
 
@@ -90,29 +86,28 @@ void main() {
       blocTest<AuthCubit, AuthState>(
         'emits [loading, authenticated] on success',
         setUp: () {
-          when(() => mockAuthRepository.signInWithApple())
-              .thenAnswer((_) async => testUser);
+          when(
+            () => mockAuthRepository.signInWithApple(),
+          ).thenAnswer((_) async => testUser);
         },
         build: buildCubit,
         act: (cubit) => cubit.signInWithApple(),
         expect: () => [
           const AuthState.loading(),
-          AuthState.authenticated(testUser),
+          const AuthState.authenticated(testUser),
         ],
       );
 
       blocTest<AuthCubit, AuthState>(
         'emits [loading, error] on failure',
         setUp: () {
-          when(() => mockAuthRepository.signInWithApple())
-              .thenThrow(Exception('Apple sign in failed'));
+          when(
+            () => mockAuthRepository.signInWithApple(),
+          ).thenThrow(Exception('Apple sign in failed'));
         },
         build: buildCubit,
         act: (cubit) => cubit.signInWithApple(),
-        expect: () => [
-          const AuthState.loading(),
-          isA<AuthState>(),
-        ],
+        expect: () => [const AuthState.loading(), isA<AuthState>()],
       );
     });
 
@@ -120,14 +115,11 @@ void main() {
       blocTest<AuthCubit, AuthState>(
         'emits [unauthenticated] on sign out',
         setUp: () {
-          when(() => mockAuthRepository.signOut())
-              .thenAnswer((_) async {});
+          when(() => mockAuthRepository.signOut()).thenAnswer((_) async {});
         },
         build: buildCubit,
         act: (cubit) => cubit.signOut(),
-        expect: () => [
-          const AuthState.unauthenticated(),
-        ],
+        expect: () => [const AuthState.unauthenticated()],
       );
     });
 
@@ -141,8 +133,9 @@ void main() {
       blocTest<AuthCubit, AuthState>(
         'returns user when authenticated',
         setUp: () {
-          when(() => mockAuthRepository.signInWithGoogle())
-              .thenAnswer((_) async => testUser);
+          when(
+            () => mockAuthRepository.signInWithGoogle(),
+          ).thenAnswer((_) async => testUser);
         },
         build: buildCubit,
         act: (cubit) => cubit.signInWithGoogle(),

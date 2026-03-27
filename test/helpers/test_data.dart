@@ -11,7 +11,7 @@ const testUser = AppUser(
   displayName: 'Test User',
 );
 
-final testProfile = UserProfile(
+const testProfile = UserProfile(
   uid: testUid,
   displayName: 'Test User',
   email: 'test@example.com',
@@ -20,7 +20,7 @@ final testProfile = UserProfile(
 );
 
 final testBucketItems = [
-  BucketItem(
+  const BucketItem(
     id: 'item-1',
     name: 'Eiffel Tower',
     address: 'Champ de Mars, Paris',
@@ -31,7 +31,7 @@ final testBucketItems = [
     category: 'culture',
     createdAt: 1700000000000,
   ),
-  BucketItem(
+  const BucketItem(
     id: 'item-2',
     name: 'Sushi Dai',
     address: 'Tsukiji, Tokyo',
@@ -46,7 +46,7 @@ final testBucketItems = [
     memo: 'Amazing sushi!',
     createdAt: 1700000000000,
   ),
-  BucketItem(
+  const BucketItem(
     id: 'item-3',
     name: 'Shibuya Crossing',
     address: 'Shibuya, Tokyo',
@@ -59,7 +59,7 @@ final testBucketItems = [
     visitedAt: 1700200000000,
     createdAt: 1700000000000,
   ),
-  BucketItem(
+  const BucketItem(
     id: 'item-4',
     name: 'Central Park',
     address: 'New York, NY',
