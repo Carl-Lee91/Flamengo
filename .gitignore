@@ -49,6 +49,10 @@ app.*.map.json
 *.env
 ios/Flutter/Secrets.xcconfig
 
+# Firebase config
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
 # Firebase CLI logs
 firepit-log.txt
 
