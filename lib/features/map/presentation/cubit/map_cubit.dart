@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:injectable/injectable.dart';
 
+import 'package:flamengo/core/utils/logger.dart';
 import 'package:flamengo/features/map/domain/entities/place.dart';
 import 'package:flamengo/features/map/domain/repositories/map_repository.dart';
 import 'package:flamengo/features/map/presentation/cubit/map_state.dart';
@@ -22,12 +23,13 @@ class MapCubit extends Cubit<MapState> {
       }
 
       final position = await Geolocator.getCurrentPosition();
+      log.i('[Map] position: ${position.latitude}, ${position.longitude}');
       emit(state.copyWith(
         currentPosition: LatLng(position.latitude, position.longitude),
         isLoading: false,
       ));
-    } catch (e) {
-      // Default to Seoul
+    } catch (e, st) {
+      log.e('[Map] initPosition failed, fallback to Seoul', error: e, stackTrace: st);
       emit(state.copyWith(
         currentPosition: const LatLng(37.5665, 126.9780),
         isLoading: false,
@@ -50,12 +52,14 @@ class MapCubit extends Cubit<MapState> {
         );
       }).toSet();
 
+      log.i('[Map] searchNearby: ${places.length} places found');
       emit(state.copyWith(
         nearbyPlaces: places,
         markers: markers,
         isLoading: false,
       ));
-    } catch (e) {
+    } catch (e, st) {
+      log.e('[Map] searchNearbyPlaces failed', error: e, stackTrace: st);
       emit(state.copyWith(isLoading: false, errorMessage: e.toString()));
     }
   }

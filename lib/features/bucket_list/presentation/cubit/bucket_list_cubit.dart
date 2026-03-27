@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
+import 'package:flamengo/core/utils/logger.dart';
 import 'package:flamengo/features/bucket_list/domain/entities/bucket_item.dart';
 import 'package:flamengo/features/bucket_list/domain/repositories/bucket_list_repository.dart';
 import 'package:flamengo/features/bucket_list/presentation/cubit/bucket_list_state.dart';
@@ -17,17 +18,20 @@ class BucketListCubit extends Cubit<BucketListState> {
     emit(state.copyWith(isLoading: true, errorMessage: null));
     try {
       final items = await _repository.getAll(uid);
+      log.i('[BucketList] loaded ${items.length} items');
       emit(state.copyWith(
         items: items,
         filteredItems: _applyFilter(items, state.selectedCategory),
         isLoading: false,
       ));
-    } catch (e) {
+    } catch (e, st) {
+      log.e('[BucketList] loadItems failed', error: e, stackTrace: st);
       emit(state.copyWith(isLoading: false, errorMessage: e.toString()));
     }
   }
 
   void filterByCategory(String? category) {
+    log.i('[BucketList] filter: ${category ?? 'all'}');
     emit(state.copyWith(
       selectedCategory: category,
       filteredItems: _applyFilter(state.items, category),
@@ -38,8 +42,10 @@ class BucketListCubit extends Cubit<BucketListState> {
     if (_uid == null) return;
     try {
       await _repository.addItem(_uid!, item);
+      log.i('[BucketList] added: ${item.name}');
       await loadItems(_uid!);
-    } catch (e) {
+    } catch (e, st) {
+      log.e('[BucketList] addItem failed', error: e, stackTrace: st);
       emit(state.copyWith(errorMessage: e.toString()));
     }
   }
@@ -55,8 +61,10 @@ class BucketListCubit extends Cubit<BucketListState> {
         memo: memo,
       );
       await _repository.updateItem(_uid!, updated);
+      log.i('[BucketList] markVisited: ${item.name} (rating: $rating)');
       await loadItems(_uid!);
-    } catch (e) {
+    } catch (e, st) {
+      log.e('[BucketList] markVisited failed', error: e, stackTrace: st);
       emit(state.copyWith(errorMessage: e.toString()));
     }
   }
@@ -65,8 +73,10 @@ class BucketListCubit extends Cubit<BucketListState> {
     if (_uid == null) return;
     try {
       await _repository.deleteItem(_uid!, itemId);
+      log.i('[BucketList] deleted: $itemId');
       await loadItems(_uid!);
-    } catch (e) {
+    } catch (e, st) {
+      log.e('[BucketList] deleteItem failed', error: e, stackTrace: st);
       emit(state.copyWith(errorMessage: e.toString()));
     }
   }
