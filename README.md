@@ -1,38 +1,140 @@
 # Flamengo
 
-## 🦉About
+A personal travel companion app for managing your bucket list destinations and tracking your travel footprint.
 
-가고 싶은, 갔었던 장소를 즐겨찾기 하여 해당 점포를 ID별로 관리 하는 어플리케이션.
+## Features
 
-2023.10.10 구글 플레이스토어 출시
+- **Bucket List** - Save places you want to visit, organized by category (Food, Culture, Nature, Nightlife, Shopping)
+- **Map Explore** - Discover nearby places using Google Maps and Places API, then add them to your bucket list
+- **Travel Footprint** - Visualize your visited places grouped by country and city
+- **Stats Dashboard** - Track your travel statistics with category breakdowns and progress
+- **Profile** - Manage your traveler profile with initials avatar
 
-## 🛠️사용 기술
+## Architecture
 
-- Flutter, Android
-- GoRoute, Provider, Riverpod
-- MVVM
-- Google Maps API
-- Firebase
+Clean Architecture with feature-based module structure:
 
-## ✈핵심 기능
+```
+lib/
+├── core/           # DI, Router, Network, Firebase config, Constants
+├── design_system/  # Theme, Colors, Typography, Shared widgets
+├── features/
+│   ├── auth/           # Google + Apple Sign-In
+│   ├── bucket_list/    # CRUD for bucket list places
+│   ├── map/            # Google Maps + Places API search
+│   ├── footprint/      # Travel footprint visualization
+│   ├── stats/          # Statistics dashboard
+│   ├── profile/        # User profile management
+│   └── settings/       # App settings & logout
+└── shell/          # Bottom navigation shell
+```
 
-- 구글 맵스 API중 Place API를 사용하여 카페와 음식점의 데이터만 Firebase 데이터베이스에 업로드 했고 업로드 한 데이터를 바탕으로 즐겨찾기 기능을 추가하였다.
-- 구글 맵스 패키지를 사용하여 화면에 구글 지도와 마커 기능을 추가하였다.
-- Firebase Auth를 이용하여 사용자 인증을 하였고, 소셜로그인 기능을 추가하여 구글 로그인 기능을 만들었다.
-- GoRouter를 사용하여 각 Screen마다 router를 만들었다.
-- Firebase Storage를 활용하여 계정마다 Avatar를 업로드 할 수 있게 만들었다.
-- MVVM아키텍처를 활용하여 유지보수가 쉽게 만들었다. - 관련 블로그글
+Each feature follows the **data / domain / presentation** layer pattern:
+- **domain** - Entities (freezed) + Repository interfaces
+- **data** - Data sources (Firebase RTDB, Retrofit) + Repository implementations
+- **presentation** - Cubit (flutter_bloc) + Screens + Widgets
 
-[안드로이드 아키텍쳐](https://velog.io/@carllee/안드로이드-아키텍쳐)
+## Tech Stack
 
-- Provider와 Riverpod으로 상태관리와 의존성 관리를 했다 - 관련 블로그글
+| Category | Technology |
+|----------|-----------|
+| Framework | Flutter 3.41+ / Dart 3.11+ |
+| State Management | flutter_bloc (Cubit) |
+| DI | get_it + injectable |
+| Navigation | GoRouter (StatefulShellRoute) |
+| Database | Firebase Realtime Database |
+| Auth | Firebase Auth (Google + Apple) |
+| Network | Dio + Retrofit |
+| Maps | Google Maps Flutter + Places API |
+| Code Gen | freezed + json_serializable + build_runner |
+| Design | Material 3, Inter font, ScreenUtil (375x812) |
+| Analytics | Firebase Analytics + Crashlytics |
+| Testing | bloc_test + mocktail |
 
-[Flutter에서의 상속](https://velog.io/@carllee/Flutter에서의-상속)
+## Getting Started
 
-## 🤔후기
+### Prerequisites
 
-앱을 만들기 전에 가장 큰 목표 두가지를 세웠다. 
+- Flutter SDK (via [fvm](https://fvm.app/))
+- Firebase project configured
+- Google Maps API key
+- Google Sign-In configured (OAuth 2.0)
 
-첫 번째로 구글 플레이 스토어에 무리없이 등록하는것, 두 번째로 구글 맵 기능이 포함되어 있는것.
+### Setup
 
-이 두가지를 대주제로 삼아 앱을 만들었고, 만들면서 초기 구상보다 다른 기능이 들어가거나, 추가한기능이 있으며 삭제된 기능이 있다. 더 좋은 앱을 만들지 못해 아쉬움이 많이 남은 앱이지만 혼자서 처음 마켓에 출시한 앱이여서 내게는 기념비적인 작품이 되었다. 앞으로 어떤 앱을 만들어도 이 앱을 다시 한 번 실행시켜 첫 기분을 느끼려고 한다.
+1. Clone the repository
+```bash
+git clone https://github.com/your-username/flamengo.git
+cd flamengo
+```
+
+2. Create `.env` file in the project root
+```env
+FIREBASE_API_KEY=your_firebase_api_key
+MAP_API_KEY=your_google_maps_api_key
+```
+
+3. Add Google Maps API key to `android/local.properties`
+```properties
+google.map.key=your_google_maps_api_key
+```
+
+4. Install dependencies and generate code
+```bash
+fvm flutter pub get
+fvm dart run build_runner build --delete-conflicting-outputs
+```
+
+5. Run the app
+```bash
+fvm flutter run
+```
+
+### Running Tests
+
+```bash
+fvm flutter test
+```
+
+## Firebase Realtime DB Structure
+
+```
+users/{uid}/
+├── profile/
+│   ├── displayName
+│   ├── email
+│   ├── createdAt
+│   └── updatedAt
+├── bucketList/{placeId}/
+│   ├── name, address, lat, lng
+│   ├── country, city, category
+│   ├── memo, rating, visited, visitedAt
+│   ├── createdAt, googlePlaceId
+│   └── ...
+└── stats/
+    ├── totalPlaces, visitedPlaces
+    ├── countries, cities
+    └── categoryStats/{category}/
+        ├── total
+        └── visited
+```
+
+## Android Build Config
+
+| Property | Value |
+|----------|-------|
+| compileSdk | 36 |
+| minSdk | 23 (Android 6.0+) |
+| targetSdk | 35 |
+| AGP | 8.9.1 |
+| Kotlin | 2.3.10 |
+| Gradle | 8.11.1 |
+| Java | 17 |
+
+## Design System
+
+- **Primary Color**: Coral Orange (`#FF6B35`)
+- **Secondary Color**: Navy (`#004E89`)
+- **Font**: Inter (via google_fonts)
+- **Spacing**: gap package
+- **Design Size**: 375 x 812 (ScreenUtil)
