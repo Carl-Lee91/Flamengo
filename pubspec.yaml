@@ -1,0 +1,95 @@
+name: flamengo
+description: Travel Bucket List & Footprint App
+publish_to: "none"
+version: 2.0.0+1
+
+environment:
+  sdk: ">=3.10.0 <4.0.0"
+
+#=====================================================================
+#               앱 실행에 필요한 런타임 패키지 (Dependencies)
+#=====================================================================
+dependencies:
+  flutter:
+    sdk: flutter
+
+  #== Core Architecture: 상태관리, 라우팅, 의존성 주입 ==#
+  flutter_bloc: ^9.1.1
+  go_router: ^17.1.0
+  get_it: ^9.2.1
+  injectable: ^2.7.1+4
+
+  #== Networking & API ==#
+  dio: ^5.9.2
+  retrofit: ^4.9.2
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.11.0
+
+  #== Firebase ==#
+  firebase_core: ^4.5.0
+  firebase_auth: ^6.2.0
+  firebase_database: ^12.2.0
+  firebase_messaging: ^16.1.2
+  firebase_analytics: ^12.1.3
+  firebase_crashlytics: ^5.0.8
+
+  #== Social Authentication ==#
+  google_sign_in: ^7.2.0
+  sign_in_with_apple: ^7.0.1
+
+  #== Local Storage ==#
+  shared_preferences: ^2.5.4
+  flutter_secure_storage: ^10.0.0
+  path_provider: ^2.1.5
+
+  #== Permissions & Device Info ==#
+  permission_handler: ^12.0.1
+  connectivity_plus: ^7.0.0
+  package_info_plus: ^9.0.0
+  geolocator: ^14.0.2
+
+  #== UI ==#
+  cupertino_icons: ^1.0.8
+  flutter_svg: ^2.2.3
+  cached_network_image: ^3.4.1
+  flutter_screenutil: ^5.9.3
+  google_maps_flutter: ^2.16.0
+  google_fonts: ^6.2.1
+  gap: ^3.0.1
+
+  #== Utilities ==#
+  flutter_dotenv: ^6.0.0
+  intl: ^0.20.2
+  logger: ^2.6.2
+  fluttertoast: ^9.0.0
+  url_launcher: ^6.3.2
+  app_links: ^7.0.0
+
+#=====================================================================
+#               개발 과정에서만 필요한 패키지 (Dev Dependencies)
+#=====================================================================
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+  #== Code Generation ==#
+  build_runner: ^2.12.1
+  injectable_generator: ^2.12.1
+  retrofit_generator: ^10.2.3
+  freezed: ^3.2.5
+  json_serializable: ^6.13.0
+
+  #== App Branding ==#
+  flutter_native_splash: ^2.4.7
+  flutter_launcher_icons: ^0.14.4
+
+  #== Testing ==#
+  bloc_test: ^10.0.0
+  mocktail: ^1.0.4
+
+flutter:
+  assets:
+    - assets/img/
+    - .env
+  uses-material-design: true
